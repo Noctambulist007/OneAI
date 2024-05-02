@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "830276298820",
+    "project_id": "dashscan-b672c",
+    "storage_bucket": "dashscan-b672c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830276298820:android:010d7f0299f7f7c1563411",
+        "android_client_info": {
+          "package_name": "com.elort.dashscan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrsxVq_bBAyLzJix3oJCUEBlObuw6SfJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

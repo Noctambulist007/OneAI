@@ -1,0 +1,110 @@
+name: dashscan
+description: "Dash Scan -  QR and Bar Code Scanner"
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+
+#--------------- PACKAGES ---------------#
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Utility Packages
+  http: ^1.2.1
+  intl: ^0.19.0
+  rive: ^0.13.0
+  share: ^2.0.4
+  lottie: ^3.1.0
+  collection: ^1.18.0
+  url_launcher: ^6.2.5
+  shared_preferences: ^2.2.2
+  font_awesome_flutter: ^10.7.0
+  smooth_page_indicator: ^1.1.0
+  flutter_swipe_action_cell: ^3.1.3
+  flutter_local_notifications: ^17.0.0
+  flutter_staggered_animations: ^1.1.1
+  animated_bottom_navigation_bar: ^1.3.3
+
+  # scanner
+  qr_flutter: ^4.1.0
+  flutter_barcode_scanner: ^2.0.0
+
+  # Local Storage
+  sqflite: ^2.3.2
+
+  # Icons
+  cupertino_icons: ^1.0.6
+  iconsax: ^0.0.8
+
+  # State Management
+  provider: ^6.1.2
+  path_provider: ^2.1.2
+
+  path: any
+  firebase_core: ^2.24.2
+  firebase_messaging: ^14.7.10
+  firebase_analytics: ^10.8.0
+
+#--------------- ./ PACKAGES END ---------------#
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logos/dashscan_logo.png"
+
+
+flutter:
+
+  uses-material-design: true
+
+  #--------------- LOCAL ASSETS ---------------#
+  assets:
+    #- assets/icons/categories
+    - assets/logos/
+    - assets/animations/
+    - assets/images/
+  #--------------- ./ LOCAL ASSETS END ---------------#
+
+
+  #--------------- LOCAL FONTS ---------------#
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 800
+        - asset: assets/fonts/Poppins-BoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Poppins-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+
+  #--------------- ./ LOCAL FONTS END ---------------#
