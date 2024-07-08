@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:dashscan/features/generate/models/qr_utils.dart';
+import 'package:scannify/features/generate/models/qr_utils.dart';
 
 class QRState extends ChangeNotifier {
   String _data = '';

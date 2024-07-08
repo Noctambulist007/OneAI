@@ -4,10 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:dashscan/features/generate/screens/widgets/container_button.dart';
-import 'package:dashscan/features/scan/providers/scan_provider.dart';
-import 'package:dashscan/features/scan/screens/widgets/tap_to_scan_button.dart';
-import 'package:dashscan/utils/constants/colors.dart';
+import 'package:scannify/features/generate/screens/widgets/container_button.dart';
+import 'package:scannify/features/scan/providers/scan_provider.dart';
+import 'package:scannify/features/scan/screens/widgets/tap_to_scan_button.dart';
+import 'package:scannify/utils/constants/colors.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,7 +41,7 @@ class ScanScreenContent extends StatelessWidget {
           color: AppColors.primary,
         ),
         title: const Text(
-          'Scan Me',
+          'Scannify',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: 'Poppins',

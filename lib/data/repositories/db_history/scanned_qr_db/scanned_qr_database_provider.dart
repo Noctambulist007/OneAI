@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:dashscan/data/repositories/db_history/scanned_qr_db/scannedQR.dart';
+import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr.dart';
 
 class ScannedQRDatabaseProvider {
   late Database _database;

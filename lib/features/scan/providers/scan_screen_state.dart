@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:dashscan/features/scan/providers/scan_provider.dart';
-import 'package:dashscan/features/scan/screens/scan_screen.dart';
+import 'package:scannify/features/scan/providers/scan_provider.dart';
+import 'package:scannify/features/scan/screens/scan_screen.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});

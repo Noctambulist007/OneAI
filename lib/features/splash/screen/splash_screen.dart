@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:dashscan/features/navigation/screens/navigation_menu.dart';
-import 'package:dashscan/features/walkthrough/screens/onboarding/onboarding.dart';
-import 'package:dashscan/utils/constants/image_strings.dart';
-import 'package:dashscan/utils/constants/sizes.dart';
-import 'package:dashscan/utils/constants/text_strings.dart';
+import 'package:scannify/features/navigation/screens/navigation_menu.dart';
+import 'package:scannify/features/walkthrough/screens/onboarding/onboarding.dart';
+import 'package:scannify/utils/constants/image_strings.dart';
+import 'package:scannify/utils/constants/sizes.dart';
+import 'package:scannify/utils/constants/text_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,11 +17,27 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late SharedPreferences _prefs;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _animationController.forward();
 
     SharedPreferences.getInstance().then((prefs) {
       _prefs = prefs;
@@ -34,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen>
           MaterialPageRoute(builder: (_) => const OnBoardingScreen()),
         );
       } else {
-        Future.delayed(const Duration(seconds: 1), () {
+        Future.delayed(const Duration(seconds: 2), () {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (_) => const NavigationMenu()),
           );
@@ -45,6 +61,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
+    _animationController.dispose();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: SystemUiOverlay.values);
     super.dispose();
@@ -62,40 +79,56 @@ class _SplashScreenState extends State<SplashScreen>
             end: Alignment.bottomCenter,
           ),
         ),
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(flex: 2),
-            Image(
-              image: AssetImage(AppImages.appLogo),
-              height: 150,
-              width: 150,
+            const Spacer(flex: 2),
+            AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                return Transform.scale(
+                  scale: _animation.value,
+                  child: const Image(
+                    image: AssetImage(AppImages.appLogo),
+                    height: 150,
+                    width: 150,
+                  ),
+                );
+              },
             ),
-            SizedBox(height: AppSizes.spaceBtwItems),
-            Spacer(
-              flex: 3,
+            const SizedBox(height: AppSizes.spaceBtwItems),
+            const Text(
+              AppTexts.appSlogan,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w300,
+                fontFamily: 'Poppins',
+              ),
             ),
+            const Spacer(flex: 3),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: const [
                 Image(
-                    image: AssetImage(AppImages.companyAppLogo),
-                    height: 25,
-                    width: 25,
-                    color: Colors.green),
+                  image: AssetImage(AppImages.companyAppLogo),
+                  height: 50,
+                  width: 50,
+                ),
                 SizedBox(height: AppSizes.spaceBtwItems),
                 Text(
                   AppTexts.companySlogan,
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w300,
-                      fontFamily: 'Poppins'),
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: 'Poppins',
+                  ),
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),

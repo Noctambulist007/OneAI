@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:dashscan/features/generate/models/generate_item_model.dart';
-import 'package:dashscan/features/generate/providers/generate_qr.dart';
+import 'package:scannify/features/generate/models/generate_item_model.dart';
+import 'package:scannify/features/generate/providers/generate_qr.dart';
 import 'generate_card.dart';
-import 'package:dashscan/utils/constants/colors.dart';
+import 'package:scannify/utils/constants/colors.dart';
 
 class GenerateGridLayout extends StatelessWidget {
   const GenerateGridLayout({

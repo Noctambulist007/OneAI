@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
-import 'package:dashscan/utils/constants/colors.dart';
+import 'package:scannify/utils/constants/colors.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 

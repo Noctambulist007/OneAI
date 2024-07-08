@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:dashscan/features/generate/providers/qr_provider.dart';
-import 'package:dashscan/utils/constants/colors.dart';
+import 'package:scannify/features/generate/providers/qr_provider.dart';
+import 'package:scannify/utils/constants/colors.dart';
 import 'container_button.dart';
 
 class SaveImageButton extends StatelessWidget {

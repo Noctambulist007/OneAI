@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:dashscan/data/repositories/db_history/generated_qr_db/history_item.dart';
-import 'package:dashscan/features/history/providers/history_provider.dart';
-import 'package:dashscan/features/history/screens/generated_tab_screen/widgets/generated_history_item_tile.dart';
-import 'package:dashscan/utils/constants/colors.dart';
+import 'package:scannify/data/repositories/db_history/generated_qr_db/history_item.dart';
+import 'package:scannify/features/history/providers/history_provider.dart';
+import 'package:scannify/features/history/screens/generated_tab_screen/widgets/generated_history_item_tile.dart';
+import 'package:scannify/utils/constants/colors.dart';
 
 class GeneratedGroupedHistoryList extends StatelessWidget {
   final Map<String, List<HistoryItem>> groupedHistory;

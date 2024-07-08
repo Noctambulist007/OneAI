@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dashscan/features/scan/providers/scan_provider.dart';
+import 'package:scannify/features/scan/providers/scan_provider.dart';
 
 class TapToScan extends StatelessWidget {
   const TapToScan({super.key});

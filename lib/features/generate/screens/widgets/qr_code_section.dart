@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:dashscan/features/generate/providers/qr_provider.dart';
-import 'package:dashscan/features/generate/screens/widgets/save_image_button.dart';
-import 'package:dashscan/features/generate/screens/widgets/share_button.dart';
+import 'package:scannify/features/generate/providers/qr_provider.dart';
+import 'package:scannify/features/generate/screens/widgets/save_image_button.dart';
+import 'package:scannify/features/generate/screens/widgets/share_button.dart';
 import 'copy_button.dart';
 
 class QrCodeSection extends StatelessWidget {

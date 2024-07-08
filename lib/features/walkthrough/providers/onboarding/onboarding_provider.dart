@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dashscan/features/navigation/screens/navigation_menu.dart';
+import 'package:scannify/features/navigation/screens/navigation_menu.dart';
 
 class OnBoardingProvider extends ChangeNotifier {
   final PageController pageController = PageController();

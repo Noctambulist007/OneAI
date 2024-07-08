@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:dashscan/features/generate/providers/qr_provider.dart';
-import 'package:dashscan/utils/constants/colors.dart';
+import 'package:scannify/features/generate/providers/qr_provider.dart';
+import 'package:scannify/utils/constants/colors.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({

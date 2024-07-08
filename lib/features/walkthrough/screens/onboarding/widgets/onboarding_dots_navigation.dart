@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dashscan/features/walkthrough/providers/onboarding/onboarding_provider.dart';
-import 'package:dashscan/utils/constants/colors.dart';
-import 'package:dashscan/utils/constants/sizes.dart';
-import 'package:dashscan/utils/device/device_utility.dart';
+import 'package:scannify/features/walkthrough/providers/onboarding/onboarding_provider.dart';
+import 'package:scannify/utils/constants/colors.dart';
+import 'package:scannify/utils/constants/sizes.dart';
+import 'package:scannify/utils/device/device_utility.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingNavigationDots extends StatelessWidget {

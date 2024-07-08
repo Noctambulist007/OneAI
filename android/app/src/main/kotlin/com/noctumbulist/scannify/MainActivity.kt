@@ -1,4 +1,4 @@
-package com.elort.dashscan
+package com.noctumbulist.scannify
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:dashscan/data/repositories/db_history/generated_qr_db/history_database_provider.dart';
-import 'package:dashscan/data/repositories/db_history/generated_qr_db/history_item.dart';
-import 'package:dashscan/data/repositories/db_history/scanned_qr_db/scannedQR.dart';
-import 'package:dashscan/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
-import 'package:dashscan/features/history/providers/history_provider.dart';
-import 'package:dashscan/features/history/providers/scanned_history_provider.dart';
-import 'package:dashscan/features/history/screens/common_widgets/scanned_grouped_history_list.dart';
-import 'package:dashscan/utils/constants/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import 'common_widgets/empty_history.dart';
-import 'common_widgets/generated_grouped_history_list.dart';
+import 'package:scannify/data/repositories/db_history/generated_qr_db/history_database_provider.dart';
+import 'package:scannify/data/repositories/db_history/generated_qr_db/history_item.dart';
+import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr.dart';
+import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
+import 'package:scannify/features/generate/screens/widgets/custom_popup_menu_button.dart';
+import 'package:scannify/features/history/providers/history_provider.dart';
+import 'package:scannify/features/history/providers/scanned_history_provider.dart';
+import 'package:scannify/features/history/screens/common_widgets/empty_history.dart';
+import 'package:scannify/features/history/screens/common_widgets/generated_grouped_history_list.dart';
+import 'package:scannify/features/history/screens/common_widgets/scanned_grouped_history_list.dart';
+import 'package:scannify/utils/constants/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HistoryScreen extends StatelessWidget {
-  const HistoryScreen({super.key});
+  const HistoryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +24,19 @@ class HistoryScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'History',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Poppins',
-              color: AppColors.primary,
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'History',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
+                  color: AppColors.primary,
+                ),
+              ),
+              CustomPopupMenuButton(),
+            ],
           ),
           bottom: const TabBar(
             labelColor: AppColors.primary,
@@ -69,6 +77,9 @@ class HistoryScreen extends StatelessWidget {
             } else {
               List<ScannedQR> scannedQRs = snapshot.data!;
 
+              // Save or update scanned history to Firestore
+              _saveOrUpdateScannedHistory(scannedQRs);
+
               List<ScannedQR> historyItems = scannedQRs.map((scannedQR) {
                 return ScannedQR(
                   id: scannedQR.id,
@@ -80,7 +91,7 @@ class HistoryScreen extends StatelessWidget {
               }).toList();
 
               Map<String, List<ScannedQR>> groupedHistory =
-                  _groupByDateScannedQR(historyItems);
+              _groupByDateScannedQR(historyItems);
 
               return ScannedGroupedHistoryList(
                 groupedHistory: groupedHistory,
@@ -107,8 +118,12 @@ class HistoryScreen extends StatelessWidget {
               return const EmptyHistory();
             } else {
               List<HistoryItem> historyItems = snapshot.data!;
+
+              // Save or update generated history to Firestore
+              _saveOrUpdateGeneratedHistory(historyItems);
+
               Map<String, List<HistoryItem>> groupedHistory =
-                  _groupByDate(historyItems);
+              _groupByDate(historyItems);
               return GeneratedGroupedHistoryList(
                 groupedHistory: groupedHistory,
                 historyState: historyState,
@@ -125,7 +140,7 @@ class HistoryScreen extends StatelessWidget {
 
     for (var historyItem in historyItems) {
       DateTime dateTime =
-          DateFormat("MMMM d, y hh:mm a").parse(historyItem.date);
+      DateFormat("MMMM d, y hh:mm a").parse(historyItem.date);
       String formattedDate = DateFormat("MMMM d, y").format(dateTime);
 
       if (groupedHistory.containsKey(formattedDate)) {
@@ -153,5 +168,142 @@ class HistoryScreen extends StatelessWidget {
     }
 
     return groupedHistory;
+  }
+
+  void _saveOrUpdateGeneratedHistory(List<HistoryItem> historyItems) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final generatedHistoryCollection =
+    FirebaseFirestore.instance.collection('generated_history');
+
+    for (var historyItem in historyItems) {
+      try {
+        await generatedHistoryCollection
+            .doc('${user!.uid}_${historyItem.id}')
+            .set({
+          'id': historyItem.id,
+          'title': historyItem.title,
+          'qrImage': historyItem.qrImage,
+          'date': historyItem.date,
+        });
+      } catch (e) {
+        print('Error saving history item: $e');
+      }
+    }
+  }
+
+  void _saveOrUpdateScannedHistory(List<ScannedQR> scannedQRs) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final scannedHistoryCollection =
+    FirebaseFirestore.instance.collection('scanned_history');
+
+    for (var scannedQR in scannedQRs) {
+      try {
+        await scannedHistoryCollection
+            .doc('${user!.uid}_${scannedQR.id}')
+            .set({
+          'id': scannedQR.id,
+          'qrImage': scannedQR.qrImage,
+          'result': scannedQR.result,
+          'date': scannedQR.date,
+        });
+      } catch (e) {
+        print('Error saving scanned QR: $e');
+      }
+    }
+  }
+
+  // Method to backup data to Firestore
+  void backupDataToFirestore() {
+    final user = FirebaseAuth.instance.currentUser;
+    final scannedHistoryCollection =
+    FirebaseFirestore.instance.collection('scanned_history');
+    final generatedHistoryCollection =
+    FirebaseFirestore.instance.collection('generated_history');
+
+    // Backup scanned history
+    ScannedQRDatabaseProvider.instance.getScannedQRs().then((scannedQRs) {
+      for (var scannedQR in scannedQRs) {
+        try {
+          scannedHistoryCollection
+              .doc('${user!.uid}_${scannedQR.id}')
+              .set({
+            'id': scannedQR.id,
+            'qrImage': scannedQR.qrImage,
+            'result': scannedQR.result,
+            'date': scannedQR.date,
+          });
+        } catch (e) {
+          print('Error backing up scanned QR: $e');
+        }
+      }
+    });
+
+    // Backup generated history
+    HistoryDatabaseProvider.instance.getHistoryItems().then((historyItems) {
+      for (var historyItem in historyItems) {
+        try {
+          generatedHistoryCollection
+              .doc('${user!.uid}_${historyItem.id}')
+              .set({
+            'id': historyItem.id,
+            'title': historyItem.title,
+            'qrImage': historyItem.qrImage,
+            'date': historyItem.date,
+          });
+        } catch (e) {
+          print('Error backing up generated history item: $e');
+        }
+      }
+    });
+  }
+
+  // Method to restore data from Firestore
+  void restoreDataFromFirestore() {
+    final user = FirebaseAuth.instance.currentUser;
+    final scannedHistoryCollection =
+    FirebaseFirestore.instance.collection('scanned_history');
+    final generatedHistoryCollection =
+    FirebaseFirestore.instance.collection('generated_history');
+
+    // Restore scanned history
+    scannedHistoryCollection.get().then((querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        if (doc.id.startsWith(user!.uid)) {
+          try {
+            ScannedQR scannedQR = ScannedQR(
+              id: doc['id'],
+              qrImage: doc['qrImage'],
+              title: doc['title'], // Ensure 'title' is fetched from Firestore
+              result: doc['result'],
+              date: doc['date'] != null ? (doc['date'] as Timestamp).toDate() : DateTime.now(),
+            );
+            ScannedQRDatabaseProvider.instance.insertScannedQR(scannedQR);
+          } catch (e) {
+            print('Error restoring scanned QR: $e');
+          }
+        }
+      });
+    });
+
+
+    // Restore generated history
+    generatedHistoryCollection.get().then((querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        if (doc.id.startsWith(user!.uid)) {
+          // Process each document
+          try {
+            HistoryItem historyItem = HistoryItem(
+              id: doc['id'],
+              title: doc['title'],
+              qrImage: doc['qrImage'],
+              date: doc['date'],
+            );
+            HistoryDatabaseProvider.instance.insertHistoryItem(historyItem);
+          } catch (e) {
+            print('Error restoring generated history item: $e');
+          }
+        }
+      });
+    });
   }
 }

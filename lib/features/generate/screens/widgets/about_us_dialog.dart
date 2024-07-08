@@ -1,4 +1,4 @@
-import 'package:dashscan/utils/constants/colors.dart';
+import 'package:scannify/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -61,7 +61,7 @@ class AboutUsDialogState extends State<AboutUsDialog>
           children: [
             const SizedBox(height: 10),
             Image.asset(
-              'assets/logos/elort_logo_raw.png',
+              'assets/logos/scannify-logo.png',
               height: 40,
             ),
             const SizedBox(height: 15),
@@ -73,9 +73,9 @@ class AboutUsDialogState extends State<AboutUsDialog>
                     color: AppColors.black)),
             GestureDetector(
               onTap: () {
-                launch('https://elort.com');
+                launch('https://muhammadsajedulislam.com');
               },
-              child: const Text('elort.com',
+              child: const Text('muhammadsajedulislam.com',
                   style: TextStyle(
                       fontWeight: FontWeight.w300,
                       fontFamily: 'Poppins',
@@ -91,9 +91,9 @@ class AboutUsDialogState extends State<AboutUsDialog>
                     color: AppColors.black)),
             GestureDetector(
               onTap: () {
-                launch('mailto:helloelort@gmail.com');
+                launch('mailto:muhammadsajedulislambn@gmail.com');
               },
-              child: const Text('helloelort@gmail.com',
+              child: const Text('muhammadsajedulislambn@gmail.com',
                   style: TextStyle(
                       fontWeight: FontWeight.w300,
                       fontFamily: 'Poppins',

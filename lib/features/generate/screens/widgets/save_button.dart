@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dashscan/features/generate/providers/qr_provider.dart';
+import 'package:scannify/features/generate/providers/qr_provider.dart';
 
 class SaveButton extends StatelessWidget {
   const SaveButton({

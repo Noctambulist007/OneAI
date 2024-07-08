@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:dashscan/utils/constants/sizes.dart';
-import 'package:dashscan/utils/device/device_utility.dart';
+import 'package:scannify/utils/constants/sizes.dart';
+import 'package:scannify/utils/device/device_utility.dart';
 
 class OnBoardingPage extends StatelessWidget {
   final String animationAsset;

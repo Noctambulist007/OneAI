@@ -1,4 +1,4 @@
-import 'package:dashscan/data/repositories/db_history/generated_qr_db/history_item.dart';
+import 'package:scannify/data/repositories/db_history/generated_qr_db/history_item.dart';
 import 'package:flutter/material.dart';
 import 'generated_history_tile.dart';
 

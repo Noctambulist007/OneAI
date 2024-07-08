@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:dashscan/features/generate/providers/qr_provider.dart';
-import 'package:dashscan/features/scan/screens/scan_screen.dart';
+import 'package:scannify/features/generate/providers/qr_provider.dart';
+import 'package:scannify/features/scan/screens/scan_screen.dart';
 import 'container_button.dart';
 
 class CopyButton extends StatelessWidget {

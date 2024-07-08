@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:dashscan/data/repositories/db_history/scanned_qr_db/scannedQR.dart';
-import 'package:dashscan/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
-import 'package:dashscan/features/history/providers/scanned_history_provider.dart';
-import 'package:dashscan/features/history/screens/scanned_tab_screen/widgets/scanned_history_item_tile.dart';
-import 'package:dashscan/utils/constants/colors.dart';
+import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr.dart';
+import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
+import 'package:scannify/features/history/providers/scanned_history_provider.dart';
+import 'package:scannify/features/history/screens/scanned_tab_screen/widgets/scanned_history_item_tile.dart';
+import 'package:scannify/utils/constants/colors.dart';
 
 class ScannedGroupedHistoryList extends StatelessWidget {
   final Map<String, List<ScannedQR>> groupedHistory;

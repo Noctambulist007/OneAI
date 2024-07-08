@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:dashscan/data/repositories/db_history/scanned_qr_db/scannedQR.dart';
-import 'package:dashscan/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
+import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr.dart';
+import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
 
 class ScanProvider extends ChangeNotifier {
   final ScannedQRDatabaseProvider _databaseProvider =

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:dashscan/features/generate/providers/qr_provider.dart';
+import 'package:scannify/features/generate/providers/qr_provider.dart';
 import 'package:share/share.dart';
 import 'container_button.dart';
 

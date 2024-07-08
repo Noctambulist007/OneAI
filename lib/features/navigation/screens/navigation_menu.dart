@@ -1,10 +1,10 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dashscan/features/navigation/providers/navigation_provider.dart';
-import 'package:dashscan/features/scan/providers/scan_screen_state.dart';
-import 'package:dashscan/utils/constants/colors.dart';
-import 'package:dashscan/utils/constants/image_strings.dart';
+import 'package:scannify/features/navigation/providers/navigation_provider.dart';
+import 'package:scannify/features/scan/providers/scan_screen_state.dart';
+import 'package:scannify/utils/constants/colors.dart';
+import 'package:scannify/utils/constants/image_strings.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});

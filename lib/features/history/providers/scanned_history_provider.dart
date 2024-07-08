@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
-import 'package:dashscan/data/repositories/db_history/scanned_qr_db/scannedQR.dart';
-import 'package:dashscan/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
+import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr.dart';
+import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
 
 class ScannedHistoryState extends ChangeNotifier {
   List<ScannedQR> _scannedQRItems = [];
