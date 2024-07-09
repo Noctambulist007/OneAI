@@ -29,14 +29,16 @@ Scannify is a versatile mobile application designed to effortlessly scan QR code
 
 ## ✨ Features
 
-- 🔍 **QR and Barcode Scanning**: Quickly scan and decode QR codes and various barcode formats.
-- 🖼️ **Image Analysis with Gemini AI**: Scan any image and get an AI-powered description using Google's Gemini AI.
-- 🏗️ **QR Code Generation**: Create QR codes on-demand for various purposes.
-- 📜 **Scan History**: View and manage your scanning history with local database storage.
-- 📤 **Share and Copy**: Easily share or copy scanned results and generated QR codes.
-- 🎨 **User-Friendly Interface**: Intuitive design with smooth animations and transitions.
-- 🚀 **Onboarding Experience**: Informative onboarding screens to guide new users.
-- 🌙 **Dark Mode Support**: Comfortable viewing in low-light environments.
+- 🔍 QR and Barcode Scanning: Quickly scan and decode QR codes and various barcode formats.
+- 🖼️ Image Analysis with Gemini AI: Scan any image and get an AI-powered description using Google's Gemini AI.
+- 🏗️ QR Code Generation: Create QR codes on-demand for various purposes.
+- 📜 Scan History: View and manage your scanning history with local database storage.
+- 📤 Share and Copy: Easily share or copy scanned results and generated QR codes.
+- 🎨 User-Friendly Interface: Intuitive design with smooth animations and transitions.
+- 🚀 Onboarding Experience: Informative onboarding screens to guide new users.
+- 🌙 Dark Mode Support: Comfortable viewing in low-light environments.
+- 🔐 One-click Login: Simplified access using Google authentication.
+- ☁️ Backup and Restore: Securely backup your scan history and settings to cloud storage for easy restoration on any device.
 
 ## 🛠️ Technologies Used
 
