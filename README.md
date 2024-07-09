@@ -16,6 +16,13 @@
   <a href="#contributing">Contributing</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/Noctambulist-007/Scannify/releases/tag/v1.0.0">
+    <img src="https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android" alt="Download APK">
+  </a>
+</p>
+
+
 ---
 
 Scannify is a versatile mobile application designed to effortlessly scan QR codes and barcodes. This project focuses on providing a user-friendly interface with advanced features and a sleek design.
