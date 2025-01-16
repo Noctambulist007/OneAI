@@ -53,7 +53,7 @@ class ScanAIProvider with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    final apiKey = 'AIzaSyDoOwBz7dtFZ9Ffg46xyxtH5JQffIgFZeY';
+    final apiKey = 'AIzaSyCI61YJrepMLJtb3mcxapeDH77r-K-uNko';
 
     final model = GenerativeModel(
       model: 'gemini-1.5-pro',
