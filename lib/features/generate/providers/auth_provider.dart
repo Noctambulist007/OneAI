@@ -1,14 +1,15 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:scannify/utils/validations/validations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   User? _user;
   String? _profilePicUrl;
+  bool _isLoading = false;
 
   AuthProvider() {
     initialize();
@@ -16,64 +17,176 @@ class AuthProvider with ChangeNotifier {
 
   User? get user => _user;
   String? get profilePicUrl => _profilePicUrl;
+  bool get isLoading => _isLoading;
 
-  Future<void> signInWithGoogle() async {
+  void _setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  Future<void> initialize() async {
+    _user = _auth.currentUser;
+    if (_user != null) {
+      await _getProfilePicUrl();
+      if (_user!.emailVerified == false) {
+        await sendEmailVerification();
+      }
+    }
+    notifyListeners();
+  }
+
+  Future<String?> signUpWithEmail(String email, String password, String firstName, String lastName) async {
+    // Validate input
+    String? emailError = ValidationUtils.validateEmail(email);
+    if (emailError != null) return emailError;
+
+    String? passwordError = ValidationUtils.validatePassword(password);
+    if (passwordError != null) return passwordError;
+
+    String? firstNameError = ValidationUtils.validateName(firstName);
+    if (firstNameError != null) return firstNameError;
+
+    String? lastNameError = ValidationUtils.validateName(lastName);
+    if (lastNameError != null) return lastNameError;
+
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        print('Google sign-in was canceled');
-        return;
+      _setLoading(true);
+      final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      _user = userCredential.user;
+      await _user?.updateDisplayName('$firstName $lastName');
+      await sendEmailVerification();
+
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return _handleAuthError(e);
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  Future<String?> signInWithEmail(String email, String password) async {
+    // Validate input
+    String? emailError = ValidationUtils.validateEmail(email);
+    if (emailError != null) return emailError;
+
+    String? passwordError = ValidationUtils.validatePassword(password);
+    if (passwordError != null) return passwordError;
+
+    try {
+      _setLoading(true);
+      final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      _user = userCredential.user;
+      if (!_user!.emailVerified) {
+        return 'Please verify your email before signing in';
       }
 
-      final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+      await _getProfilePicUrl();
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return _handleAuthError(e);
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Google Sign In
+  Future<String?> signInWithGoogle() async {
+    try {
+      _setLoading(true);
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return 'Google sign-in was cancelled';
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      final UserCredential userCredential =
-      await _auth.signInWithCredential(credential);
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
       _user = userCredential.user;
       _profilePicUrl = _user?.photoURL;
       await _saveProfilePicUrl(_profilePicUrl);
 
-      print('User signed in: ${_user?.displayName}');
-      notifyListeners();
-    } catch (error) {
-      print('Error during Google sign-in: $error');
+      return null;
+    } catch (e) {
+      return 'Error during Google sign-in: $e';
+    } finally {
+      _setLoading(false);
     }
   }
 
+  // Send Email Verification
+  Future<void> sendEmailVerification() async {
+    try {
+      await _user?.sendEmailVerification();
+    } catch (e) {
+      print('Error sending email verification: $e');
+    }
+  }
+
+  // Sign Out
   Future<void> signOut() async {
-    await _auth.signOut();
-    _user = null;
-    _profilePicUrl = null;
-    await _clearProfilePicUrl();
-    notifyListeners();
+    try {
+      await _auth.signOut();
+      await _googleSignIn.signOut();
+      _user = null;
+      _profilePicUrl = null;
+      await _clearProfilePicUrl();
+      notifyListeners();
+    } catch (e) {
+      print('Error signing out: $e');
+    }
+  }
+
+  // Password Reset
+  Future<String?> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return _handleAuthError(e);
+    }
+  }
+
+  // Helper Methods
+  String _handleAuthError(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'user-not-found':
+        return 'No user found with this email';
+      case 'wrong-password':
+        return 'Wrong password';
+      case 'email-already-in-use':
+        return 'Email is already in use';
+      case 'invalid-email':
+        return 'Invalid email address';
+      case 'weak-password':
+        return 'Password is too weak';
+      default:
+        return 'Authentication error: ${e.message}';
+    }
   }
 
   Future<void> _saveProfilePicUrl(String? url) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     await prefs.setString('profile_pic_url', url ?? '');
   }
 
   Future<void> _getProfilePicUrl() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _profilePicUrl = prefs.getString('profile_pic_url') ?? '';
+    final prefs = await SharedPreferences.getInstance();
+    _profilePicUrl = prefs.getString('profile_pic_url');
     notifyListeners();
   }
 
   Future<void> _clearProfilePicUrl() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     await prefs.remove('profile_pic_url');
-  }
-
-  void initialize() async {
-    _user = _auth.currentUser;
-    if (_user != null) {
-      await _getProfilePicUrl();
-    }
-    notifyListeners();
   }
 }
