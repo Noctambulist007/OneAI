@@ -3,6 +3,7 @@ import 'package:scannify/features/generate/screens/widgets/google_sign_in_avatar
 import 'package:scannify/features/generate/models/generate_item_model.dart';
 import 'package:scannify/features/generate/models/generate_items.dart';
 import 'package:scannify/features/generate/screens/widgets/generate_grid_layout.dart';
+import 'package:scannify/features/generate/screens/widgets/login_screen.dart';
 import 'package:scannify/features/generate/screens/widgets/scan_ai_generate_card.dart';
 import 'package:scannify/features/scanai/screens/scan_ai_screen.dart';
 import 'package:scannify/utils/constants/colors.dart';
@@ -18,10 +19,10 @@ class GenerateScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffe7ebee),
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Generate QR',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -43,7 +44,8 @@ class GenerateScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ScanAiScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const ScanAiScreen()),
                   );
                 },
                 child: const SizedBox(

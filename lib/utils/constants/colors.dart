@@ -4,8 +4,8 @@ class AppColors {
   AppColors._();
 
   // Basic Colors
-  static const Color primary = Color(0xff0F826B);
-  static const Color secondary = Color.fromARGB(109, 140, 94, 91);
+  static const Color primary = Color(0xff027373);
+  static const Color secondary = Color(0xFF2F867D);
 
   // Text Colors
   static const Color textPrimary = Color(0xff333333);
@@ -45,4 +45,7 @@ class AppColors {
   static const Color softGrey = Color(0xfff4f4f4);
   static const Color lightGrey = Color(0xfff9f9f9);
   static const Color white = Color(0xffffffff);
+
+  static Color colorSurface = Color(0xFFF9FCFF);
 }
+

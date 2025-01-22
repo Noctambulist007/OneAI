@@ -1,87 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scannify/features/generate/providers/auth_provider.dart';
-import 'package:scannify/utils/constants/colors.dart'; // Your color constants
+import 'package:scannify/features/generate/screens/widgets/login_screen.dart';
+import 'package:scannify/utils/constants/colors.dart';
 
 class GoogleSignInAvatar extends StatelessWidget {
+  const GoogleSignInAvatar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-
-    return GestureDetector(
-      onTap: () async {
+    return Consumer<AuthProvider>(
+      builder: (context, authProvider, _) {
         if (authProvider.user == null) {
-          await authProvider.signInWithGoogle();
-        } else {
-          // Show logout dialog
-          _showLogoutDialog(context);
+          return _buildLoginButton(context);
         }
-      },
-      child: CircleAvatar(
-        backgroundColor: AppColors.primary, // Replace with your app's primary color
-        backgroundImage: authProvider.profilePicUrl != null && authProvider.profilePicUrl!.isNotEmpty
-            ? NetworkImage(authProvider.profilePicUrl!)
-            : null,
-        child: authProvider.profilePicUrl == null || authProvider.profilePicUrl!.isEmpty
-            ? Icon(Icons.person, color: Colors.white) // Default icon for no profile pic
-            : null,
-      ),
-    );
-  }
 
-  void _showLogoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          backgroundColor: Colors.white,
-          title: Text(
-            'Logout',
-            style: TextStyle(
-              color: AppColors.primary, // Custom text color
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: Text(
-            'Are you sure you want to logout?',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 16.0,
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                'Cancel',
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Provider.of<AuthProvider>(context, listen: false).signOut();
-                Navigator.pop(context);
-              },
-              child: Text(
-                'Logout',
-                style: TextStyle(
-                  color: Colors.red, // Custom logout button color
-                  fontSize: 16.0,
-                ),
+        return PopupMenuButton(
+          offset: const Offset(0, 50),
+          child: _buildAvatar(authProvider.profilePicUrl),
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              child: ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
+                onTap: () async {
+                  await authProvider.signOut();
+                  if (context.mounted) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    );
+                  }
+                },
               ),
             ),
           ],
         );
       },
+    );
+  }
+
+  Widget _buildAvatar(String? profileUrl) {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: AppColors.primary, width: 2),
+      ),
+      child: CircleAvatar(
+        radius: 20,
+        backgroundColor: AppColors.primary.withOpacity(0.1),
+        backgroundImage: profileUrl != null ? NetworkImage(profileUrl) : null,
+        child: profileUrl == null
+            ? const Icon(Icons.person, color: AppColors.primary)
+            : null,
+      ),
+    );
+  }
+
+  Widget _buildLoginButton(BuildContext context) {
+    return InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: AppColors.primary,
+        ),
+        child: const Icon(Icons.person, color: AppColors.white),
+      ),
     );
   }
 }
