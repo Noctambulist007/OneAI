@@ -55,7 +55,7 @@ OneAI is a powerful Flutter application that brings advanced AI capabilities to 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/one_ai.git
+git clone https://github.com/Noctambulist007/OneAI.git
 cd one_ai
 ```
 
