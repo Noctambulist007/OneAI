@@ -1,6 +1,6 @@
 class AppTexts {
   // App Slogan
-  static const String appSlogan = 'Scannify - QR and Bar Code Scanner';
+  static const String appSlogan = 'OneAI – One Click, One Solution.';
   static const String companySlogan = '...A Promise to Lead';
 
   // OnBoarding Texts

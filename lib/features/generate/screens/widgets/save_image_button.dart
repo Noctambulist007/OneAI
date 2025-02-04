@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:scannify/features/generate/providers/qr_provider.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/features/generate/providers/qr_provider.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 import 'container_button.dart';
 
 class SaveImageButton extends StatelessWidget {
@@ -23,7 +23,7 @@ class SaveImageButton extends StatelessWidget {
               color: Colors.white,
               fontSize: 14,
               fontWeight: FontWeight.w300,
-              fontFamily: 'Poppins',
+              fontFamily: 'RobotoMono',
             ),
           ),
           backgroundColor: AppColors.primary,

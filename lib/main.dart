@@ -1,6 +1,8 @@
-import 'package:scannify/features/generate/providers/auth_provider.dart';
-import 'package:scannify/features/scanai/providers/scan_ai_provider.dart';
-import 'package:scannify/scannify.dart';
+import 'package:flutter/services.dart';
+import 'package:motion/motion.dart';
+import 'package:one_ai/features/generate/providers/auth_provider.dart';
+import 'package:one_ai/features/scanai/providers/scan_ai_provider.dart';
+import 'package:one_ai/one_ai.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +19,7 @@ void main() async {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
         apiKey: 'AIzaSyBPYxs3shA7QsGR8Yv_a0zEUd3K3AskiB0',
-        appId: '1:480769648249:android:d428332db33ba2d787d6a8',
+        appId: '1:480769648249:android:c546361c59fe2e0e87d6a8',
         messagingSenderId: '480769648249',
         projectId: 'scannify-3ddee',
         storageBucket: 'scannify-3ddee.appspot.com',
@@ -25,6 +27,14 @@ void main() async {
     );
     await FirebaseApi().initNotifications();
     await ScannedQRDatabaseProvider.instance.initialize();
+
+    await Motion.instance.initialize();
+    Motion.instance.setUpdateInterval(60.fps);
+
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     runApp(
       MultiProvider(
@@ -36,10 +46,11 @@ void main() async {
           ChangeNotifierProvider(create: (context) => HistoryState()),
           ChangeNotifierProvider(create: (context) => ScanAIProvider()),
         ],
-        child: const Scannify(),
+        child: const OneAI(),
       ),
     );
   } catch (e) {
     print('Error initializing app: $e');
   }
 }
+

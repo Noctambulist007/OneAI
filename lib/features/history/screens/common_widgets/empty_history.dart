@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 
 class EmptyHistory extends StatelessWidget {
   const EmptyHistory({super.key});
@@ -11,7 +11,7 @@ class EmptyHistory extends StatelessWidget {
         'No history items available.',
         style: TextStyle(
           fontWeight: FontWeight.w300,
-          fontFamily: 'Poppins',
+          fontFamily: 'RobotoMono',
           fontSize: 18.0,
           color: AppColors.primary,
         ),

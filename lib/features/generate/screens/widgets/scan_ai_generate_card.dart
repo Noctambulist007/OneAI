@@ -37,7 +37,7 @@ class ScanAiGenerateCard extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w300,
-                  fontFamily: 'Poppins',
+                  fontFamily: 'RobotoMono',
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scannify/features/generate/providers/auth_provider.dart';
-import 'package:scannify/features/generate/screens/widgets/login_screen.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/features/generate/providers/auth_provider.dart';
+import 'package:one_ai/features/generate/screens/widgets/login_screen.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 
 class GoogleSignInAvatar extends StatelessWidget {
   const GoogleSignInAvatar({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:scannify/features/generate/models/generate_item_model.dart';
-import 'package:scannify/features/generate/providers/generate_qr.dart';
+import 'package:one_ai/features/generate/models/generate_item_model.dart';
+import 'package:one_ai/features/generate/providers/generate_qr.dart';
 import 'generate_card.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 
 class GenerateGridLayout extends StatelessWidget {
   const GenerateGridLayout({
@@ -22,16 +22,16 @@ class GenerateGridLayout extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-          childAspectRatio: 1.5,
+          crossAxisSpacing: 2.0,
+          mainAxisSpacing: 2.0,
+          childAspectRatio: 1.2,
         ),
         itemCount: items.length,
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
               showModalBottomSheet(
-                scrollControlDisabledMaxHeightRatio: 0.9,
+                scrollControlDisabledMaxHeightRatio: 1.0,
                 context: context,
                 builder: (BuildContext context) {
                   return GenerateQR(itemText: items[index].text);

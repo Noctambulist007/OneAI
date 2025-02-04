@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:scannify/features/generate/screens/widgets/about_us_dialog.dart';
+import 'package:one_ai/features/generate/screens/widgets/about_us_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:scannify/features/history/screens/history_screen.dart'; // Ensure you import the correct path
+import 'package:one_ai/features/history/screens/history_screen.dart'; // Ensure you import the correct path
 
 class CustomPopupMenuButton extends StatelessWidget {
   const CustomPopupMenuButton({Key? key}) : super(key: key);
@@ -32,14 +32,14 @@ class CustomPopupMenuButton extends StatelessWidget {
       itemBuilder: (context) => [
         _customPopupMenuItem('Backup', Icons.backup_outlined),
         _customPopupMenuItem('Restore', Icons.restore),
-        PopupMenuDivider(),
+        const PopupMenuDivider(),
         _customPopupMenuItem('About Us', Icons.info_outline),
         _customPopupMenuItem('More Apps', Icons.apps_outlined),
         _customPopupMenuItem('Privacy and Policy', Icons.privacy_tip_outlined),
       ],
       icon: const Icon(
         Icons.more_vert,
-        color: AppColors.primary,
+        color: AppColors.white,
       ),
     );
   }
@@ -49,12 +49,12 @@ class CustomPopupMenuButton extends StatelessWidget {
       value: text,
       child: Row(
         children: [
-          Icon(icon),
+          Icon(icon, color: Colors.black),
           const SizedBox(width: 8.0),
           Text(
             text,
             style: const TextStyle(
-              fontFamily: 'Poppins',
+              fontFamily: 'RobotoMono',
               fontWeight: FontWeight.normal,
               color: Colors.black,
             ),

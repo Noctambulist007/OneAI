@@ -1,4 +1,4 @@
-package com.noctumbulist.scannify
+package com.noctumbulist.one_ai
 
 import io.flutter.embedding.android.FlutterActivity
 

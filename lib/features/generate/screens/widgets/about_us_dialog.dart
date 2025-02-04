@@ -1,4 +1,4 @@
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,7 +48,7 @@ class AboutUsDialogState extends State<AboutUsDialog>
           'About Us',
           style: TextStyle(
             fontWeight: FontWeight.w300,
-            fontFamily: 'Poppins',
+            fontFamily: 'RobotoMono',
             color: AppColors.black,
             fontSize: 18,
           ),
@@ -61,14 +61,14 @@ class AboutUsDialogState extends State<AboutUsDialog>
           children: [
             const SizedBox(height: 10),
             Image.asset(
-              'assets/logos/scannify-logo.png',
+              'assets/logos/app-logo.png',
               height: 40,
             ),
             const SizedBox(height: 15),
             const Text('Powered by',
                 style: TextStyle(
                     fontWeight: FontWeight.w300,
-                    fontFamily: 'Poppins',
+                    fontFamily: 'RobotoMono',
                     fontSize: 14,
                     color: AppColors.black)),
             GestureDetector(
@@ -78,7 +78,7 @@ class AboutUsDialogState extends State<AboutUsDialog>
               child: const Text('muhammadsajedulislam.com',
                   style: TextStyle(
                       fontWeight: FontWeight.w300,
-                      fontFamily: 'Poppins',
+                      fontFamily: 'RobotoMono',
                       fontSize: 16,
                       color: AppColors.primary)),
             ),
@@ -86,7 +86,7 @@ class AboutUsDialogState extends State<AboutUsDialog>
             const Text('Contact us',
                 style: TextStyle(
                     fontWeight: FontWeight.w300,
-                    fontFamily: 'Poppins',
+                    fontFamily: 'RobotoMono',
                     fontSize: 14,
                     color: AppColors.black)),
             GestureDetector(
@@ -96,7 +96,7 @@ class AboutUsDialogState extends State<AboutUsDialog>
               child: const Text('muhammadsajedulislambn@gmail.com',
                   style: TextStyle(
                       fontWeight: FontWeight.w300,
-                      fontFamily: 'Poppins',
+                      fontFamily: 'RobotoMono',
                       fontSize: 16,
                       color: AppColors.primary)),
             ),
@@ -119,7 +119,7 @@ class AboutUsDialogState extends State<AboutUsDialog>
                 child: const Text('Close',
                     style: TextStyle(
                         fontWeight: FontWeight.w300,
-                        fontFamily: 'Poppins',
+                        fontFamily: 'RobotoMono',
                         fontSize: 14,
                         color: AppColors.black)),
               ),

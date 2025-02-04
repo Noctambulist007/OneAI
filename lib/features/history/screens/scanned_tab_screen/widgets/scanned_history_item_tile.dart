@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr.dart';
+import 'package:one_ai/data/repositories/db_history/scanned_qr_db/scanned_qr.dart';
 import 'scanned_history_tile.dart';
 
 class ScannedHistoryItemTile extends StatelessWidget {

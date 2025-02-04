@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scannify/features/walkthrough/providers/onboarding/onboarding_provider.dart';
-import 'package:scannify/features/walkthrough/screens/onboarding/widgets/onboarding_dots_navigation.dart';
-import 'package:scannify/features/walkthrough/screens/onboarding/widgets/onboarding_next_button.dart';
-import 'package:scannify/features/walkthrough/screens/onboarding/widgets/onboarding_page.dart';
-import 'package:scannify/features/walkthrough/screens/onboarding/widgets/onboarding_skip_button.dart';
-import 'package:scannify/utils/constants/text_strings.dart';
-import 'package:scannify/utils/device/device_utility.dart';
+import 'package:one_ai/features/walkthrough/providers/onboarding/onboarding_provider.dart';
+import 'package:one_ai/features/walkthrough/screens/onboarding/widgets/onboarding_dots_navigation.dart';
+import 'package:one_ai/features/walkthrough/screens/onboarding/widgets/onboarding_next_button.dart';
+import 'package:one_ai/features/walkthrough/screens/onboarding/widgets/onboarding_page.dart';
+import 'package:one_ai/features/walkthrough/screens/onboarding/widgets/onboarding_skip_button.dart';
+import 'package:one_ai/utils/constants/text_strings.dart';
+import 'package:one_ai/utils/device/device_utility.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});

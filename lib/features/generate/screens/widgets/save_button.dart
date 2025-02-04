@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scannify/features/generate/providers/qr_provider.dart';
+import 'package:one_ai/features/generate/providers/qr_provider.dart';
 
 class SaveButton extends StatelessWidget {
   const SaveButton({
@@ -40,7 +40,7 @@ class SaveButton extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w300,
-                      fontFamily: 'Poppins',
+                      fontFamily: 'RobotoMono',
                     ),
                   ),
                   backgroundColor: Colors.red,
@@ -54,7 +54,7 @@ class SaveButton extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w300,
-                      fontFamily: 'Poppins',
+                      fontFamily: 'RobotoMono',
                     ),
                   ),
                   backgroundColor: Colors.deepOrangeAccent,
@@ -75,7 +75,7 @@ class SaveButton extends StatelessWidget {
               color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Poppins',
+              fontFamily: 'RobotoMono',
             ),
           ),
         ),

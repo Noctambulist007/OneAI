@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -45,7 +45,7 @@ class ScannedHistoryTile extends StatelessWidget {
         ),
       ],
       child: Container(
-        color: const Color(0xffe7ebee),
+        color: AppColors.secondary.withOpacity(0.8),
         child: ListTile(
           leading: icon,
           title: Column(
@@ -63,7 +63,7 @@ class ScannedHistoryTile extends StatelessWidget {
               ),
             ],
           ),
-          subtitle: Text(date),
+          subtitle: Text(date, style: const TextStyle(color: Colors.grey)),
           trailing: _buildCustomPopupMenuButton(context, title),
         ),
       ),
@@ -84,7 +84,7 @@ class ScannedHistoryTile extends StatelessWidget {
             context, 'Share', Icons.share_outlined, title),
       ],
       onSelected: (int value) {},
-      icon: const Icon(Icons.more_horiz),
+      icon: const Icon(Icons.more_horiz, color: Colors.black),
     );
   }
 
@@ -103,7 +103,7 @@ class ScannedHistoryTile extends StatelessWidget {
             color: Colors.white,
             fontSize: 14,
             fontWeight: FontWeight.w300,
-            fontFamily: 'Poppins',
+            fontFamily: 'RobotoMono',
           ),
         ),
         backgroundColor: Colors.red,
@@ -136,7 +136,7 @@ class ScannedHistoryTile extends StatelessWidget {
           color: Colors.white,
           fontSize: 14,
           fontWeight: FontWeight.w300,
-          fontFamily: 'Poppins',
+          fontFamily: 'RobotoMono',
         ),
       ),
       backgroundColor: AppColors.primary,
@@ -172,12 +172,12 @@ class ScannedHistoryTile extends StatelessWidget {
         },
         child: Row(
           children: [
-            Icon(icon),
+            Icon(icon, color: Colors.black),
             const SizedBox(width: 8.0),
             Text(
               text,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyLarge!.color,
+              style: const TextStyle(
+                color: Colors.black,
               ),
             ),
           ],
