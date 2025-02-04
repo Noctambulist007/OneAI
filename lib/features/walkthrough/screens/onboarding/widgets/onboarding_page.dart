@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:scannify/utils/constants/sizes.dart';
-import 'package:scannify/utils/device/device_utility.dart';
+import 'package:one_ai/utils/constants/sizes.dart';
+import 'package:one_ai/utils/device/device_utility.dart';
 
 class OnBoardingPage extends StatelessWidget {
   final String animationAsset;
@@ -47,7 +47,7 @@ class OnBoardingPage extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins'),
+                      fontFamily: 'RobotoMono'),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16.0),
@@ -57,7 +57,7 @@ class OnBoardingPage extends StatelessWidget {
                       color: Colors.white70,
                       fontSize: 16.0,
                       fontWeight: FontWeight.w300,
-                      fontFamily: 'Poppins'),
+                      fontFamily: 'RobotoMono'),
                   textAlign: TextAlign.center,
                 ),
               ],

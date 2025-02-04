@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 
 class ContainerButton extends StatelessWidget {
   const ContainerButton({
@@ -35,7 +35,7 @@ class ContainerButton extends StatelessWidget {
                 color: AppColors.primary,
                 fontSize: 14,
                 fontWeight: FontWeight.w300,
-                fontFamily: 'Poppins',
+                fontFamily: 'RobotoMono',
               ),
             ),
           ],

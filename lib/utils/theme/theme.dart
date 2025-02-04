@@ -15,7 +15,7 @@ class CustomTheme {
   // Light Theme
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'Poppins',
+    fontFamily: 'RobotoMono',
     primaryColor: Colors.brown,
     brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.white,
@@ -32,7 +32,7 @@ class CustomTheme {
   // Dark Theme
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'Poppins',
+    fontFamily: 'RobotoMono',
     primaryColor: Colors.brown,
     brightness: Brightness.dark,
     textTheme: CustomTextTheme.darkTheme,

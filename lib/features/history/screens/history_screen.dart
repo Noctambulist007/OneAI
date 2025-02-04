@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:scannify/data/repositories/db_history/generated_qr_db/history_database_provider.dart';
-import 'package:scannify/data/repositories/db_history/generated_qr_db/history_item.dart';
-import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr.dart';
-import 'package:scannify/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
-import 'package:scannify/features/generate/screens/widgets/custom_popup_menu_button.dart';
-import 'package:scannify/features/history/providers/history_provider.dart';
-import 'package:scannify/features/history/providers/scanned_history_provider.dart';
-import 'package:scannify/features/history/screens/common_widgets/empty_history.dart';
-import 'package:scannify/features/history/screens/common_widgets/generated_grouped_history_list.dart';
-import 'package:scannify/features/history/screens/common_widgets/scanned_grouped_history_list.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/data/repositories/db_history/generated_qr_db/history_database_provider.dart';
+import 'package:one_ai/data/repositories/db_history/generated_qr_db/history_item.dart';
+import 'package:one_ai/data/repositories/db_history/scanned_qr_db/scanned_qr.dart';
+import 'package:one_ai/data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
+import 'package:one_ai/features/generate/screens/widgets/custom_popup_menu_button.dart';
+import 'package:one_ai/features/history/providers/history_provider.dart';
+import 'package:one_ai/features/history/providers/scanned_history_provider.dart';
+import 'package:one_ai/features/history/screens/common_widgets/empty_history.dart';
+import 'package:one_ai/features/history/screens/common_widgets/generated_grouped_history_list.dart';
+import 'package:one_ai/features/history/screens/common_widgets/scanned_grouped_history_list.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -22,41 +22,56 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'History',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins',
-                  color: AppColors.primary,
-                ),
-              ),
-              CustomPopupMenuButton(),
-            ],
-          ),
-          bottom: const TabBar(
-            labelColor: AppColors.primary,
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Poppins',
-              color: AppColors.black,
-            ),
-            indicatorColor: AppColors.primary,
-            tabs: [
-              Tab(text: 'Scanned'),
-              Tab(text: 'Generated'),
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.primary, // Primary color (027373)
+              AppColors.secondary, // Secondary color (2F867D)
+              Color(0xFF1D5C5C), // Darker shade of primary for depth
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            _buildScannedTab(),
-            _buildGeneratedTab(),
-          ],
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            title: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'History',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'RobotoMono',
+                    color: AppColors.white,
+                  ),
+                ),
+                CustomPopupMenuButton(),
+              ],
+            ),
+            bottom: const TabBar(
+              labelColor: AppColors.primary,
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontFamily: 'RobotoMono',
+                color: AppColors.black,
+              ),
+              indicatorColor: AppColors.primary,
+              tabs: [
+                Tab(text: 'Scanned'),
+                Tab(text: 'Generated'),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              _buildScannedTab(),
+              _buildGeneratedTab(),
+            ],
+          ),
         ),
       ),
     );

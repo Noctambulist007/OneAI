@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:scannify/data/repositories/db_history/generated_qr_db/history_item.dart';
-import 'package:scannify/features/history/providers/history_provider.dart';
-import 'package:scannify/features/history/screens/generated_tab_screen/widgets/generated_history_item_tile.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/data/repositories/db_history/generated_qr_db/history_item.dart';
+import 'package:one_ai/features/history/providers/history_provider.dart';
+import 'package:one_ai/features/history/screens/generated_tab_screen/widgets/generated_history_item_tile.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 
 class GeneratedGroupedHistoryList extends StatelessWidget {
   final Map<String, List<HistoryItem>> groupedHistory;
@@ -33,8 +33,8 @@ class GeneratedGroupedHistoryList extends StatelessWidget {
                 date,
                 style: const TextStyle(
                   fontWeight: FontWeight.w300,
-                  fontFamily: 'Poppins',
-                  color: AppColors.primary,
+                  fontFamily: 'RobotoMono',
+                  color: AppColors.white,
                 ),
               ),
             ),
@@ -70,7 +70,7 @@ class GeneratedGroupedHistoryList extends StatelessWidget {
                                   color: Colors.white,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w300,
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'RobotoMono',
                                 ),
                               ),
                               backgroundColor: Colors.red,

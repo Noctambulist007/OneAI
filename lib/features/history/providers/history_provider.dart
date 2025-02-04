@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
-import 'package:scannify/data/repositories/db_history/generated_qr_db/history_database_provider.dart';
-import 'package:scannify/data/repositories/db_history/generated_qr_db/history_item.dart';
+import 'package:one_ai/data/repositories/db_history/generated_qr_db/history_database_provider.dart';
+import 'package:one_ai/data/repositories/db_history/generated_qr_db/history_item.dart';
 
 class HistoryState extends ChangeNotifier {
   List<HistoryItem> _historyItems = [];

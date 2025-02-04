@@ -4,7 +4,7 @@ class AppColors {
   AppColors._();
 
   // Basic Colors
-  static const Color primary = Color(0xff027373);
+  static const Color primary = Color(0xff1BC27D);
   static const Color secondary = Color(0xFF2F867D);
 
   // Text Colors
@@ -16,10 +16,12 @@ class AppColors {
   static const Color light = Color(0xfff6f6f6);
   static const Color dark = Color(0xff272727);
   static const Color primaryBackground = Color(0xfff3f5ff);
+  static const Color backgroundPrimary = Color(0xff191A1F);
+  static const Color backgroundSecondary = Color(0xff08080D);
 
   // Background Container Colors
   static const Color lightContainer = Color(0xfff6f6f6);
-  static Color darkContainer = Colors.white.withOpacity(0.1);
+  static Color darkContainer = const Color(0xff36383F);
 
   // Button Colors
   static const Color buttonPrimary = Color.fromARGB(255, 138, 60, 55);

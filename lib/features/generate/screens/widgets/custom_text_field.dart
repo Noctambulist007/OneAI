@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scannify/features/generate/providers/qr_provider.dart';
-import 'package:scannify/utils/constants/colors.dart';
+import 'package:one_ai/features/generate/providers/qr_provider.dart';
+import 'package:one_ai/utils/constants/colors.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -16,14 +16,20 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20.0),
+          color: AppColors.backgroundPrimary.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+            style: const TextStyle(
+              color: AppColors.white,
+            ),
             decoration: const InputDecoration(
               hintText: 'QR message...',
+              hintStyle: TextStyle(
+                color: AppColors.grey,
+              ),
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
             ),

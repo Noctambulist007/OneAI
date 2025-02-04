@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:scannify/features/scanai/providers/scan_ai_provider.dart';
+import 'package:one_ai/features/scanai/providers/scan_ai_provider.dart';
 
 class ImageDisplay extends StatelessWidget {
   const ImageDisplay({

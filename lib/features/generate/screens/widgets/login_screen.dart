@@ -2,11 +2,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:scannify/features/generate/providers/auth_provider.dart';
-import 'package:scannify/features/generate/screens/widgets/register_screen.dart';
-import 'package:scannify/features/navigation/screens/navigation_menu.dart';
-import 'package:scannify/utils/constants/colors.dart';
-import 'package:scannify/utils/validations/validations.dart';
+import 'package:one_ai/features/generate/providers/auth_provider.dart';
+import 'package:one_ai/features/generate/screens/widgets/register_screen.dart';
+import 'package:one_ai/features/navigation/screens/navigation_menu.dart';
+import 'package:one_ai/utils/constants/colors.dart';
+import 'package:one_ai/utils/validations/validations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen>
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(height: size.height * 0.05),
                       FadeTransition(
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen>
                         child: SlideTransition(
                           position: _slideAnimation,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 'Welcome Back',

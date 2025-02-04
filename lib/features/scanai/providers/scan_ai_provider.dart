@@ -6,31 +6,24 @@ class ScanAIProvider with ChangeNotifier {
   final ImagePicker _picker = ImagePicker();
   XFile? _image;
   String _description = '';
+  String _extractedText = '';
+  String _handwritingText = '';
   bool _isLoading = false;
 
+  bool get hasResults => _description.isNotEmpty || _extractedText.isNotEmpty || _handwritingText.isNotEmpty;
+
   final List<SafetySetting> _safetySettings = [
-    SafetySetting(
-      HarmCategory.harassment,
-      HarmBlockThreshold.none,
-    ),
-    SafetySetting(
-      HarmCategory.hateSpeech,
-      HarmBlockThreshold.none,
-    ),
-    SafetySetting(
-      HarmCategory.sexuallyExplicit,
-      HarmBlockThreshold.none,
-    ),
-    SafetySetting(
-      HarmCategory.dangerousContent,
-      HarmBlockThreshold.none,
-    ),
+    SafetySetting(HarmCategory.harassment, HarmBlockThreshold.none),
+    SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.none),
+    SafetySetting(HarmCategory.sexuallyExplicit, HarmBlockThreshold.none),
+    SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.none),
   ];
 
+  // Getters
   XFile? get image => _image;
-
   String get description => _description;
-
+  String get extractedText => _extractedText;
+  String get handwritingText => _handwritingText;
   bool get isLoading => _isLoading;
 
   Future<void> getImage() async {
@@ -38,46 +31,73 @@ class ScanAIProvider with ChangeNotifier {
       source: ImageSource.gallery,
     );
 
-    _image = pickedImage;
-    _description = '';
-    notifyListeners();
+    if (pickedImage != null) {
+      _image = pickedImage;
+      _description = '';
+      _extractedText = '';
+      _handwritingText = '';
+      notifyListeners();
+    }
   }
 
   Future<void> generateDescription() async {
-    if (_image == null) {
-      _description = 'Error: No image selected';
-      notifyListeners();
-      return;
-    }
+    if (_image == null) return;
+    await _processImage(
+      'Describe this image in detail but concisely:',
+          (response) => _description = response,
+    );
+  }
 
+  Future<void> extractText() async {
+    if (_image == null) return;
+    await _processImage(
+      'Extract and list all text visible in this image. Only output the text, no descriptions or explanations:',
+          (response) => _extractedText = response,
+    );
+  }
+
+  Future<void> extractHandwriting() async {
+    if (_image == null) return;
+    await _processImage(
+      'Extract and transcribe any handwritten text in this image. Focus on accuracy and maintaining the original structure. Only output the transcribed text:',
+          (response) => _handwritingText = response,
+    );
+  }
+
+  Future<void> _processImage(String prompt, Function(String) updateState) async {
     _isLoading = true;
     notifyListeners();
 
-    final apiKey = 'AIzaSyCI61YJrepMLJtb3mcxapeDH77r-K-uNko';
-
-    final model = GenerativeModel(
-      model: 'gemini-1.5-pro',
-      apiKey: apiKey,
-      safetySettings: _safetySettings,
-    );
-
-    final imageData = await _image!.readAsBytes();
-
     try {
+      final apiKey = 'AIzaSyDt1PQOH_zUQrwsZokzhquQ4JNk-2pnJ00';
+      final model = GenerativeModel(
+        model: 'gemini-1.5-pro',
+        apiKey: apiKey,
+        safetySettings: _safetySettings,
+      );
+
+      final imageData = await _image!.readAsBytes();
       final response = await model.generateContent([
         Content.multi([
-          TextPart('Describe this image:'),
+          TextPart(prompt),
           DataPart('image/jpeg', imageData),
         ])
       ]);
 
-      _description = response.text!;
-      _isLoading = false;
-      notifyListeners();
+      updateState(response.text ?? 'No content generated');
     } catch (e) {
-      _description = 'Error: ${e.toString()}';
+      updateState('Error: ${e.toString()}');
+    } finally {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  void clearResults() {
+    _description = '';
+    _extractedText = '';
+    _handwritingText = '';
+    _image = null;
+    notifyListeners();
   }
 }
