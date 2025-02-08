@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:one_ai/features/generate/providers/qr_feature_provider.dart';
-import 'package:one_ai/utils/constants/colors.dart';
 
 class QRFeatureInput extends StatelessWidget {
   final String featureType;
@@ -168,8 +166,11 @@ class QRFeatureInput extends StatelessWidget {
             qrProvider.generateContactQR(
               name: nameController.text,
               phone: phoneController.text,
-              email: emailController.text.isNotEmpty ? emailController.text : null,
-              organization: organizationController.text.isNotEmpty ? organizationController.text : null,
+              email:
+                  emailController.text.isNotEmpty ? emailController.text : null,
+              organization: organizationController.text.isNotEmpty
+                  ? organizationController.text
+                  : null,
             );
           },
           child: const Text('Generate Contact QR'),
@@ -215,7 +216,9 @@ class QRFeatureInput extends StatelessWidget {
           onPressed: () {
             qrProvider.generateEmailQR(
               email: emailController.text,
-              subject: subjectController.text.isNotEmpty ? subjectController.text : null,
+              subject: subjectController.text.isNotEmpty
+                  ? subjectController.text
+                  : null,
               body: bodyController.text.isNotEmpty ? bodyController.text : null,
             );
           },
@@ -253,7 +256,9 @@ class QRFeatureInput extends StatelessWidget {
           onPressed: () {
             qrProvider.generateSMSQR(
               phoneNumber: phoneController.text,
-              message: messageController.text.isNotEmpty ? messageController.text : null,
+              message: messageController.text.isNotEmpty
+                  ? messageController.text
+                  : null,
             );
           },
           child: const Text('Generate SMS QR'),
@@ -340,9 +345,15 @@ class QRFeatureInput extends StatelessWidget {
                 title: titleController.text,
                 phone: phoneController.text,
                 email: emailController.text,
-                website: websiteController.text.isNotEmpty ? websiteController.text : null,
-                company: companyController.text.isNotEmpty ? companyController.text : null,
-                address: addressController.text.isNotEmpty ? addressController.text : null,
+                website: websiteController.text.isNotEmpty
+                    ? websiteController.text
+                    : null,
+                company: companyController.text.isNotEmpty
+                    ? companyController.text
+                    : null,
+                address: addressController.text.isNotEmpty
+                    ? addressController.text
+                    : null,
               );
             },
             child: const Text('Generate Business Card QR'),

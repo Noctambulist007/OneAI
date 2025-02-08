@@ -1,0 +1,1 @@
+/Users/sajedulislam/StudioProjects/OneAI/android/build/rive_common/intermediates/cxx/RelWithDebInfo/503219q2/obj/arm64-v8a

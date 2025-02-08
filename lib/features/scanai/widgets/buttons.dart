@@ -17,35 +17,36 @@ class Buttons extends StatelessWidget {
         ElevatedButton(
           onPressed: scanProvider.getImage,
           style: ElevatedButton.styleFrom(
-            foregroundColor: Color(0xff0F826B),
+            foregroundColor: const Color(0xff0F826B),
             backgroundColor: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
           ),
-          child: Text('Choose Image', style: TextStyle(fontSize: 18)),
+          child: const Text('Choose Image', style: TextStyle(fontSize: 18)),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         ElevatedButton(
-          onPressed:
-          scanProvider.image != null ? scanProvider.generateDescription : null,
+          onPressed: scanProvider.image != null
+              ? scanProvider.generateDescription
+              : null,
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Color(0xff0F826B),
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            backgroundColor: const Color(0xff0F826B),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
           ),
           child: scanProvider.isLoading
               ? Lottie.asset(
-            'assets/animations/loading.json',
-            height: 50,
-            width: 50,
-            fit: BoxFit.contain,
-          )
-              : Text('Scannify', style: TextStyle(fontSize: 18)),
+                  'assets/animations/loading.json',
+                  height: 50,
+                  width: 50,
+                  fit: BoxFit.contain,
+                )
+              : const Text('Scannify', style: TextStyle(fontSize: 18)),
         ),
       ],
     );

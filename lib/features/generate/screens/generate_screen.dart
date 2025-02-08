@@ -3,11 +3,7 @@ import 'package:one_ai/features/generate/screens/widgets/google_sign_in_avatar.d
 import 'package:one_ai/features/generate/models/generate_item_model.dart';
 import 'package:one_ai/features/generate/models/generate_items.dart';
 import 'package:one_ai/features/generate/screens/widgets/generate_grid_layout.dart';
-import 'package:one_ai/features/generate/screens/widgets/login_screen.dart';
-import 'package:one_ai/features/generate/screens/widgets/scan_ai_generate_card.dart';
-import 'package:one_ai/features/scanai/screens/scan_ai_screen.dart';
 import 'package:one_ai/utils/constants/colors.dart';
-import 'package:one_ai/utils/constants/sizes.dart';
 
 class GenerateScreen extends StatelessWidget {
   const GenerateScreen({Key? key}) : super(key: key);
@@ -22,9 +18,9 @@ class GenerateScreen extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.primary, // Primary color (027373)
-            AppColors.secondary, // Secondary color (2F867D)
-            Color(0xFF1D5C5C), // Darker shade of primary for depth
+            AppColors.primary,
+            AppColors.secondary,
+            Color(0xFF1D5C5C),
           ],
         ),
       ),
@@ -60,11 +56,10 @@ class GenerateScreen extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    AppColors.primary, // Primary color (027373)
-                    AppColors.secondary, // Secondary color (2F867D)
-                    Color(0xFF1D5C5C), // Darker shade of primary for depth
+                    AppColors.primary,
+                    AppColors.secondary,
+                    Color(0xFF1D5C5C),
                   ],
-
                 ),
               ),
               child: GenerateGridLayout(items: items)),

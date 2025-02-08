@@ -31,7 +31,7 @@ class GenerateGridLayout extends StatelessWidget {
           return InkWell(
             onTap: () {
               showModalBottomSheet(
-                scrollControlDisabledMaxHeightRatio: 1.0,
+                scrollControlDisabledMaxHeightRatio: 0.9,
                 context: context,
                 builder: (BuildContext context) {
                   return GenerateQR(itemText: items[index].text);

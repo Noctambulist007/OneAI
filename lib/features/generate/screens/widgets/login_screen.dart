@@ -73,9 +73,9 @@ class _LoginScreenState extends State<LoginScreen>
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: const [
-                        AppColors.primary, // Primary color (027373)
-                        AppColors.secondary, // Secondary color (2F867D)
-                        Color(0xFF1D5C5C), // Darker shade of primary for depth
+                        AppColors.primary,
+                        AppColors.secondary,
+                        Color(0xFF1D5C5C),
                       ],
                       stops: const [0.0, 0.5, 1.0],
                       transform: GradientRotation(

@@ -16,7 +16,9 @@ class AuthProvider with ChangeNotifier {
   }
 
   User? get user => _user;
+
   String? get profilePicUrl => _profilePicUrl;
+
   bool get isLoading => _isLoading;
 
   void _setLoading(bool value) {
@@ -35,8 +37,8 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String?> signUpWithEmail(String email, String password, String firstName, String lastName) async {
-    // Validate input
+  Future<String?> signUpWithEmail(
+      String email, String password, String firstName, String lastName) async {
     String? emailError = ValidationUtils.validateEmail(email);
     if (emailError != null) return emailError;
 
@@ -51,7 +53,8 @@ class AuthProvider with ChangeNotifier {
 
     try {
       _setLoading(true);
-      final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      final UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -69,7 +72,6 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<String?> signInWithEmail(String email, String password) async {
-    // Validate input
     String? emailError = ValidationUtils.validateEmail(email);
     if (emailError != null) return emailError;
 
@@ -78,7 +80,8 @@ class AuthProvider with ChangeNotifier {
 
     try {
       _setLoading(true);
-      final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      final UserCredential userCredential =
+          await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -97,20 +100,21 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  // Google Sign In
   Future<String?> signInWithGoogle() async {
     try {
       _setLoading(true);
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) return 'Google sign-in was cancelled';
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
       _user = userCredential.user;
       _profilePicUrl = _user?.photoURL;
       await _saveProfilePicUrl(_profilePicUrl);
@@ -123,7 +127,6 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  // Send Email Verification
   Future<void> sendEmailVerification() async {
     try {
       await _user?.sendEmailVerification();
@@ -132,7 +135,6 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  // Sign Out
   Future<void> signOut() async {
     try {
       await _auth.signOut();
@@ -146,7 +148,6 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  // Password Reset
   Future<String?> resetPassword(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
@@ -156,7 +157,6 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  // Helper Methods
   String _handleAuthError(FirebaseAuthException e) {
     switch (e.code) {
       case 'user-not-found':

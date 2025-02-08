@@ -25,12 +25,10 @@ class QRFeatureProvider extends ChangeNotifier {
     );
   }
 
-  // Clipboard text
   void generateClipboardQR(String text) {
     data = text;
   }
 
-  // Website URL
   void generateWebsiteQR(String url) {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
       url = 'https://$url';
@@ -38,7 +36,6 @@ class QRFeatureProvider extends ChangeNotifier {
     data = url;
   }
 
-  // WiFi network
   void generateWifiQR({
     required String ssid,
     required String password,
@@ -47,7 +44,6 @@ class QRFeatureProvider extends ChangeNotifier {
     data = 'WIFI:T:$encryption;S:$ssid;P:$password;;';
   }
 
-  // Social media profile
   void generateSocialProfileQR({
     required String platform,
     required String username,
@@ -70,7 +66,6 @@ class QRFeatureProvider extends ChangeNotifier {
     }
   }
 
-  // Contact information (vCard)
   void generateContactQR({
     required String name,
     required String phone,
@@ -97,7 +92,8 @@ END:VCARD''';
     String mailtoUrl = 'mailto:$email';
     if (subject != null || body != null) {
       mailtoUrl += '?';
-      if (subject != null) mailtoUrl += 'subject=${Uri.encodeComponent(subject)}';
+      if (subject != null)
+        mailtoUrl += 'subject=${Uri.encodeComponent(subject)}';
       if (body != null) {
         if (subject != null) mailtoUrl += '&';
         mailtoUrl += 'body=${Uri.encodeComponent(body)}';
@@ -106,7 +102,6 @@ END:VCARD''';
     data = mailtoUrl;
   }
 
-  // SMS
   void generateSMSQR({
     required String phoneNumber,
     String? message,
@@ -118,7 +113,6 @@ END:VCARD''';
     data = smsUrl;
   }
 
-  // Calendar event
   void generateCalendarQR({
     required String summary,
     required DateTime start,
@@ -138,10 +132,9 @@ END:VEVENT''';
   }
 
   String _formatDateTime(DateTime dt) {
-    return dt.toIso8601String().replaceAll('-', '').replaceAll(':', '').split('.')[0] + 'Z';
+    return '${dt.toIso8601String().replaceAll('-', '').replaceAll(':', '').split('.')[0]}Z';
   }
 
-  // Payment (PayPal)
   void generatePayPalQR({
     required String paypalUsername,
     double? amount,
@@ -154,7 +147,6 @@ END:VEVENT''';
     data = paypalUrl;
   }
 
-  // My Card (Personal Information)
   void generateMyCardQR({
     required String name,
     required String title,
@@ -178,7 +170,6 @@ END:VCARD''';
     data = vCard;
   }
 
-  // Text
   void generateTextQR(String text) {
     data = text;
   }

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_ai/features/main/screen/main_screen.dart';
-import 'package:one_ai/features/navigation/screens/navigation_menu.dart';
+import 'package:one_ai/features/splash/screen/widget/particle.dart';
+import 'package:one_ai/features/splash/screen/widget/particle_painter.dart';
 import 'package:one_ai/features/walkthrough/screens/onboarding/onboarding.dart';
 import 'package:one_ai/utils/constants/colors.dart';
 import 'package:one_ai/utils/constants/image_strings.dart';
 import 'package:one_ai/utils/constants/sizes.dart';
 import 'package:one_ai/utils/constants/text_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:math' as math;
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +18,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late SharedPreferences _prefs;
   late AnimationController _logoAnimationController;
   late AnimationController _particleAnimationController;
@@ -41,7 +40,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 
   void _setupAnimations() {
-    // Logo animation
     _logoAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -54,13 +52,11 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       ),
     );
 
-    // Particle animation
     _particleAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 10),
     )..repeat();
 
-    // Pulse animation
     _pulseAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -129,12 +125,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-         color: AppColors.secondary.withOpacity(0.5),
-
-      ),
+          color: AppColors.secondary.withOpacity(0.5),
+        ),
         child: Stack(
           children: [
-            // Animated particles
             CustomPaint(
               painter: ParticlePainter(
                 particles: _particles,
@@ -142,14 +136,11 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
               ),
               size: Size.infinite,
             ),
-
-            // Main content
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Spacer(flex: 2),
-                  // Animated logo
                   AnimatedBuilder(
                     animation: _logoAnimation,
                     builder: (context, child) {
@@ -163,7 +154,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  // Glowing effect
                                   Container(
                                     height: 100,
                                     width: 100,
@@ -171,14 +161,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: AppColors.primary.withOpacity(0.3),
+                                          color: AppColors.primary
+                                              .withOpacity(0.3),
                                           blurRadius: 30,
                                           spreadRadius: 10,
                                         ),
                                       ],
                                     ),
                                   ),
-                                  // Logo
                                   const Image(
                                     image: AssetImage(AppImages.appLogo),
                                     height: 80,
@@ -192,9 +182,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                       );
                     },
                   ),
-
                   const SizedBox(height: AppSizes.spaceBtwItems),
-                  // Animated text
                   FadeTransition(
                     opacity: _logoAnimation,
                     child: const Text(
@@ -208,7 +196,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                     ),
                   ),
                   const Spacer(flex: 3),
-                  // Company logo
                   FadeTransition(
                     opacity: _logoAnimation,
                     child: const Column(
@@ -242,59 +229,4 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       ),
     );
   }
-}
-
-class Particle {
-  Offset position;
-  Offset velocity;
-  final double size;
-
-  Particle({
-    required this.position,
-    required this.velocity,
-    required this.size,
-  });
-
-  void update() {
-    position += velocity;
-  }
-}
-
-class ParticlePainter extends CustomPainter {
-  final List<Particle> particles;
-  final Animation<double> animation;
-
-  ParticlePainter({
-    required this.particles,
-    required this.animation,
-  }) : super(repaint: animation);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = AppColors.primary.withOpacity(0.3)
-      ..style = PaintingStyle.fill;
-
-    for (var particle in particles) {
-      particle.update();
-
-      // Wrap particles around screen
-      if (particle.position.dx > size.width) particle.position = Offset(0, particle.position.dy);
-      if (particle.position.dx < 0) particle.position = Offset(size.width, particle.position.dy);
-      if (particle.position.dy > size.height) particle.position = Offset(particle.position.dx, 0);
-      if (particle.position.dy < 0) particle.position = Offset(particle.position.dx, size.height);
-
-      canvas.drawCircle(
-        Offset(
-          particle.position.dx + size.width / 2,
-          particle.position.dy + size.height / 2,
-        ),
-        particle.size,
-        paint,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

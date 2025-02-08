@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/features/navigation/screens/navigation_menu.dart';
+import 'package:liquid_swipe/liquid_swipe.dart';
+import 'package:one_ai/features/main/screen/main_screen.dart';
 
 class OnBoardingProvider extends ChangeNotifier {
-  final PageController pageController = PageController();
+  final LiquidController liquidController = LiquidController();
   int _currentPageIndex = 0;
 
   int get currentPageIndex => _currentPageIndex;
@@ -12,38 +13,23 @@ class OnBoardingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void dotNavigationClick(int index) {
-    _currentPageIndex = index;
-    pageController.jumpTo(index.toDouble());
-    notifyListeners();
-  }
-
   void nextPage(BuildContext context) {
     if (_currentPageIndex == 2) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const NavigationMenu(),
-      ));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MainScreen()),
+      );
     } else {
       _currentPageIndex++;
-      pageController.jumpToPage(_currentPageIndex);
+      liquidController.animateToPage(page: _currentPageIndex);
       notifyListeners();
     }
   }
 
   void skipPage(BuildContext context) {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => const NavigationMenu(),
-    ));
-  }
-
-  static OnBoardingProvider get instance => _instance!;
-  static OnBoardingProvider? _instance;
-
-  OnBoardingProvider._internal() {
-    _instance = this;
-  }
-
-  factory OnBoardingProvider() {
-    return _instance ?? OnBoardingProvider._internal();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => MainScreen()),
+    );
   }
 }

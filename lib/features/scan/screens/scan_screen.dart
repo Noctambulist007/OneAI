@@ -40,9 +40,9 @@ class ScanScreenContent extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.primary, // Primary color (027373)
-            AppColors.secondary, // Secondary color (2F867D)
-            Color(0xFF1D5C5C), // Darker shade of primary for depth
+            AppColors.primary,
+            AppColors.secondary,
+            Color(0xFF1D5C5C),
           ],
         ),
       ),
@@ -93,30 +93,38 @@ class ScanScreenContent extends StatelessWidget {
                   Visibility(
                     visible: scanProvider.qrResult.isNotEmpty,
                     child: Container(
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Scan Me Result',
-                              style: TextStyle(
+                            Text(
+                              scanProvider.isWiFiQR
+                                  ? 'WiFi Network Detected'
+                                  : 'Scan Result',
+                              style: const TextStyle(
                                 color: AppColors.primary,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'RobotoMono',
+                                fontSize: 18,
                               ),
                             ),
                             const SizedBox(height: 20),
                             Text(
                               scanProvider.qrResult,
                               style: const TextStyle(
-                                  color: Colors.grey, fontFamily: 'RobotoMono'),
+                                color: Colors.grey,
+                                fontFamily: 'RobotoMono',
+                                height: 1.5,
+                              ),
                             ),
-                            const SizedBox(height: 5),
+                            const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -126,16 +134,18 @@ class ScanScreenContent extends StatelessWidget {
                                   onTap: () {
                                     Clipboard.setData(ClipboardData(
                                         text: scanProvider.qrResult));
-                                    showSnackbar(context, 'Copied to clipboard');
+                                    showSnackbar(
+                                        context, 'Copied to clipboard');
                                   },
                                 ),
-                                ContainerButton(
-                                  icon: FontAwesomeIcons.link,
-                                  text: 'Go To',
-                                  onTap: () {
-                                    launch(scanProvider.qrResult);
-                                  },
-                                ),
+                                if (!scanProvider.isWiFiQR)
+                                  ContainerButton(
+                                    icon: FontAwesomeIcons.link,
+                                    text: 'Go To',
+                                    onTap: () {
+                                      launch(scanProvider.qrResult);
+                                    },
+                                  ),
                                 ContainerButton(
                                   icon: Iconsax.share5,
                                   text: 'Share',

@@ -1,0 +1,6 @@
+-keep class * extends androidx.fragment.app.Fragment {}
+-keep class * extends android.os.Parcelable {}
+-keep class * extends java.io.Serializable {}
+-keepattributes *Annotation*
+-keep class com.google.** { *; }
+-keep class androidx.** { *; }

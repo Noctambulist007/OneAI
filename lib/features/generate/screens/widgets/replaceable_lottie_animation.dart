@@ -10,7 +10,7 @@ class LottieAnimation extends StatelessWidget {
       width: 250,
       height: 250,
       child: Lottie.asset(
-        'assets/animations/onboarding2.json',
+        'assets/animations/qr-generate.json',
         reverse: true,
         repeat: true,
         fit: BoxFit.cover,

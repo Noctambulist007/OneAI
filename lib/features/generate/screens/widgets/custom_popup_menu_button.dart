@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/features/generate/screens/widgets/about_us_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:one_ai/utils/constants/colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:one_ai/features/history/screens/history_screen.dart'; // Ensure you import the correct path
 
 class CustomPopupMenuButton extends StatelessWidget {
@@ -20,7 +19,8 @@ class CustomPopupMenuButton extends StatelessWidget {
         if (value == 'About Us') {
           _showAboutUsDialog(context);
         } else if (value == 'More Apps') {
-          launch('https://play.google.com/store/apps/dev?id=8217403384611399596');
+          launch(
+              'https://play.google.com/store/apps/dev?id=8217403384611399596');
         } else if (value == 'Privacy and Policy') {
           launch('https://sites.google.com/view/scannify');
         } else if (value == 'Backup') {

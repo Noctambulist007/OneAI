@@ -1,7 +1,6 @@
+import 'package:one_ai/data/repositories/db_history/generated_qr_db/history_item.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
-import 'history_item.dart';
 
 class HistoryDatabaseProvider {
   static final HistoryDatabaseProvider instance = HistoryDatabaseProvider._();

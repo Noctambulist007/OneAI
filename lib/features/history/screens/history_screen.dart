@@ -28,9 +28,9 @@ class HistoryScreen extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              AppColors.primary, // Primary color (027373)
-              AppColors.secondary, // Secondary color (2F867D)
-              Color(0xFF1D5C5C), // Darker shade of primary for depth
+              AppColors.primary,
+              AppColors.secondary,
+              Color(0xFF1D5C5C),
             ],
           ),
         ),
@@ -92,7 +92,6 @@ class HistoryScreen extends StatelessWidget {
             } else {
               List<ScannedQR> scannedQRs = snapshot.data!;
 
-              // Save or update scanned history to Firestore
               _saveOrUpdateScannedHistory(scannedQRs);
 
               List<ScannedQR> historyItems = scannedQRs.map((scannedQR) {
@@ -106,7 +105,7 @@ class HistoryScreen extends StatelessWidget {
               }).toList();
 
               Map<String, List<ScannedQR>> groupedHistory =
-              _groupByDateScannedQR(historyItems);
+                  _groupByDateScannedQR(historyItems);
 
               return ScannedGroupedHistoryList(
                 groupedHistory: groupedHistory,
@@ -134,11 +133,10 @@ class HistoryScreen extends StatelessWidget {
             } else {
               List<HistoryItem> historyItems = snapshot.data!;
 
-              // Save or update generated history to Firestore
               _saveOrUpdateGeneratedHistory(historyItems);
 
               Map<String, List<HistoryItem>> groupedHistory =
-              _groupByDate(historyItems);
+                  _groupByDate(historyItems);
               return GeneratedGroupedHistoryList(
                 groupedHistory: groupedHistory,
                 historyState: historyState,
@@ -155,7 +153,7 @@ class HistoryScreen extends StatelessWidget {
 
     for (var historyItem in historyItems) {
       DateTime dateTime =
-      DateFormat("MMMM d, y hh:mm a").parse(historyItem.date);
+          DateFormat("MMMM d, y hh:mm a").parse(historyItem.date);
       String formattedDate = DateFormat("MMMM d, y").format(dateTime);
 
       if (groupedHistory.containsKey(formattedDate)) {
@@ -188,7 +186,7 @@ class HistoryScreen extends StatelessWidget {
   void _saveOrUpdateGeneratedHistory(List<HistoryItem> historyItems) async {
     final user = FirebaseAuth.instance.currentUser;
     final generatedHistoryCollection =
-    FirebaseFirestore.instance.collection('generated_history');
+        FirebaseFirestore.instance.collection('generated_history');
 
     for (var historyItem in historyItems) {
       try {
@@ -209,13 +207,11 @@ class HistoryScreen extends StatelessWidget {
   void _saveOrUpdateScannedHistory(List<ScannedQR> scannedQRs) async {
     final user = FirebaseAuth.instance.currentUser;
     final scannedHistoryCollection =
-    FirebaseFirestore.instance.collection('scanned_history');
+        FirebaseFirestore.instance.collection('scanned_history');
 
     for (var scannedQR in scannedQRs) {
       try {
-        await scannedHistoryCollection
-            .doc('${user!.uid}_${scannedQR.id}')
-            .set({
+        await scannedHistoryCollection.doc('${user!.uid}_${scannedQR.id}').set({
           'id': scannedQR.id,
           'qrImage': scannedQR.qrImage,
           'result': scannedQR.result,
@@ -227,21 +223,17 @@ class HistoryScreen extends StatelessWidget {
     }
   }
 
-  // Method to backup data to Firestore
   void backupDataToFirestore() {
     final user = FirebaseAuth.instance.currentUser;
     final scannedHistoryCollection =
-    FirebaseFirestore.instance.collection('scanned_history');
+        FirebaseFirestore.instance.collection('scanned_history');
     final generatedHistoryCollection =
-    FirebaseFirestore.instance.collection('generated_history');
+        FirebaseFirestore.instance.collection('generated_history');
 
-    // Backup scanned history
     ScannedQRDatabaseProvider.instance.getScannedQRs().then((scannedQRs) {
       for (var scannedQR in scannedQRs) {
         try {
-          scannedHistoryCollection
-              .doc('${user!.uid}_${scannedQR.id}')
-              .set({
+          scannedHistoryCollection.doc('${user!.uid}_${scannedQR.id}').set({
             'id': scannedQR.id,
             'qrImage': scannedQR.qrImage,
             'result': scannedQR.result,
@@ -253,13 +245,10 @@ class HistoryScreen extends StatelessWidget {
       }
     });
 
-    // Backup generated history
     HistoryDatabaseProvider.instance.getHistoryItems().then((historyItems) {
       for (var historyItem in historyItems) {
         try {
-          generatedHistoryCollection
-              .doc('${user!.uid}_${historyItem.id}')
-              .set({
+          generatedHistoryCollection.doc('${user!.uid}_${historyItem.id}').set({
             'id': historyItem.id,
             'title': historyItem.title,
             'qrImage': historyItem.qrImage,
@@ -272,15 +261,13 @@ class HistoryScreen extends StatelessWidget {
     });
   }
 
-  // Method to restore data from Firestore
   void restoreDataFromFirestore() {
     final user = FirebaseAuth.instance.currentUser;
     final scannedHistoryCollection =
-    FirebaseFirestore.instance.collection('scanned_history');
+        FirebaseFirestore.instance.collection('scanned_history');
     final generatedHistoryCollection =
-    FirebaseFirestore.instance.collection('generated_history');
+        FirebaseFirestore.instance.collection('generated_history');
 
-    // Restore scanned history
     scannedHistoryCollection.get().then((querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         if (doc.id.startsWith(user!.uid)) {
@@ -288,9 +275,11 @@ class HistoryScreen extends StatelessWidget {
             ScannedQR scannedQR = ScannedQR(
               id: doc['id'],
               qrImage: doc['qrImage'],
-              title: doc['title'], // Ensure 'title' is fetched from Firestore
+              title: doc['title'],
               result: doc['result'],
-              date: doc['date'] != null ? (doc['date'] as Timestamp).toDate() : DateTime.now(),
+              date: doc['date'] != null
+                  ? (doc['date'] as Timestamp).toDate()
+                  : DateTime.now(),
             );
             ScannedQRDatabaseProvider.instance.insertScannedQR(scannedQR);
           } catch (e) {
@@ -300,12 +289,9 @@ class HistoryScreen extends StatelessWidget {
       });
     });
 
-
-    // Restore generated history
     generatedHistoryCollection.get().then((querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         if (doc.id.startsWith(user!.uid)) {
-          // Process each document
           try {
             HistoryItem historyItem = HistoryItem(
               id: doc['id'],

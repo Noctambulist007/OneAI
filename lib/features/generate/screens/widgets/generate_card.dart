@@ -19,12 +19,11 @@ class _GenerateCardState extends State<GenerateCard> {
   @override
   Widget build(BuildContext context) {
     return AnimatedGradientBorder(
-      gradientColors: [
-        const Color(0xffffffff),
-        const Color(0xff000000),
+      gradientColors: const [
+        Color(0xffffffff),
+        Color(0xff000000),
       ],
       borderRadius: BorderRadius.circular(16.0),
-
       child: Card(
         margin: const EdgeInsets.all(1.0),
         elevation: 4.0,
@@ -38,7 +37,6 @@ class _GenerateCardState extends State<GenerateCard> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-
             borderRadius: BorderRadius.circular(16.0),
           ),
           child: Column(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:one_ai/features/text_ai/provider/prompt_helper.dart';
 import 'package:one_ai/utils/constants/colors.dart';
 
 class AITextProcessor extends StatefulWidget {
@@ -11,7 +12,8 @@ class AITextProcessor extends StatefulWidget {
   _AITextProcessorState createState() => _AITextProcessorState();
 }
 
-class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProviderStateMixin {
+class _AITextProcessorState extends State<AITextProcessor>
+    with SingleTickerProviderStateMixin {
   final TextEditingController _inputController = TextEditingController();
   final TextEditingController _outputController = TextEditingController();
   bool _isLoading = false;
@@ -25,7 +27,7 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
@@ -37,20 +39,26 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
             colors: [
-              Color(0xFF1A1A1A),
-              Color(0xFF0A2333),
-              Color(0xFF1A1A1A),
+              AppColors.primary.withOpacity(0.5),
+              AppColors.secondary.withOpacity(0.5),
             ],
           ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primary.withOpacity(
+                  0.2,
+              ),
+              blurRadius: 15,
+              spreadRadius: 2,
+            ),
+          ],
         ),
         child: Stack(
           children: [
-            // Animated background circles
             Positioned(
               top: -100,
               right: -100,
@@ -60,7 +68,10 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
-                    colors: [AppColors.primary.withOpacity(0.2), Colors.transparent],
+                    colors: [
+                      AppColors.primary.withOpacity(0.2),
+                      Colors.transparent
+                    ],
                   ),
                 ),
               ),
@@ -74,7 +85,10 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
-                    colors: [AppColors.secondary.withOpacity(0.15), Colors.transparent],
+                    colors: [
+                      AppColors.secondary.withOpacity(0.15),
+                      Colors.transparent
+                    ],
                   ),
                 ),
               ),
@@ -85,15 +99,15 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
                   _buildGlassHeader(),
                   Expanded(
                     child: SingleChildScrollView(
-                      padding: EdgeInsets.all(16),
-                      physics: BouncingScrollPhysics(),
+                      padding: const EdgeInsets.all(16),
+                      physics: const BouncingScrollPhysics(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildGlassCard(_buildInputSection()),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           _buildGlassCard(_buildOutputSection()),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           _buildFeatureButtons(),
                         ],
                       ),
@@ -113,13 +127,16 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: Row(
             children: [
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [AppColors.primary.withOpacity(0.5), AppColors.secondary.withOpacity(0.5)],
+                    colors: [
+                      AppColors.primary.withOpacity(0.5),
+                      AppColors.secondary.withOpacity(0.5)
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
@@ -128,7 +145,7 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
                 margin: EdgeInsets.only(right: 8),
               ),
               Text(
-                'ইনপুট টেক্সট',
+                'মন্তব্য',
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.9),
                   fontSize: 16,
@@ -139,7 +156,7 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
             ],
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: BackdropFilter(
@@ -183,7 +200,7 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
                         color: Colors.white.withOpacity(0.3),
                         fontSize: 16,
                       ),
-                      contentPadding: EdgeInsets.all(20),
+                      contentPadding: const EdgeInsets.all(20),
                       border: InputBorder.none,
                     ),
                   ),
@@ -193,7 +210,7 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
                       right: 8,
                       child: _buildGlassIconButton(
                         Icons.clear,
-                            () => _inputController.clear(),
+                        () => _inputController.clear(),
                       ),
                     ),
                 ],
@@ -210,19 +227,22 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: Row(
             children: [
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [AppColors.secondary.withOpacity(0.5), AppColors.primary.withOpacity(0.5)],
+                    colors: [
+                      AppColors.secondary.withOpacity(0.5),
+                      AppColors.primary.withOpacity(0.5)
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 height: 16,
                 width: 3,
-                margin: EdgeInsets.only(right: 8),
+                margin: const EdgeInsets.only(right: 8),
               ),
               Text(
                 'ফলাফল',
@@ -233,25 +253,26 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
                   letterSpacing: 0.5,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               if (_outputController.text.isNotEmpty) ...[
                 _buildGlassIconButton(
                   Icons.copy,
-                      () {
-                    Clipboard.setData(ClipboardData(text: _outputController.text));
+                  () {
+                    Clipboard.setData(
+                        ClipboardData(text: _outputController.text));
                     _showCustomSnackBar(context, 'কপি করা হয়েছে');
                   },
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _buildGlassIconButton(
                   Icons.clear,
-                      () => _outputController.clear(),
+                  () => _outputController.clear(),
                 ),
               ],
             ],
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: BackdropFilter(
@@ -282,39 +303,39 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
               ),
               child: _isLoading
                   ? Center(
-                child: Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: Colors.black.withOpacity(0.2),
-                  ),
-                  child: Lottie.asset(
-                    'assets/animations/loading_for_ai.json',
-                    reverse: true,
-                    repeat: true,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              )
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.black.withOpacity(0.2),
+                        ),
+                        child: Lottie.asset(
+                          'assets/animations/loading_for_ai.json',
+                          reverse: true,
+                          repeat: true,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    )
                   : TextField(
-                controller: _outputController,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.9),
-                  fontSize: 16,
-                  height: 1.5,
-                ),
-                maxLines: null,
-                decoration: InputDecoration(
-                  hintText: 'ফলাফল এখানে দেখা যাবে...',
-                  hintStyle: TextStyle(
-                    color: Colors.white.withOpacity(0.3),
-                    fontSize: 16,
-                  ),
-                  contentPadding: EdgeInsets.all(20),
-                  border: InputBorder.none,
-                ),
-              ),
+                      controller: _outputController,
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.9),
+                        fontSize: 16,
+                        height: 1.5,
+                      ),
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        hintText: 'ফলাফল এখানে দেখা যাবে...',
+                        hintStyle: TextStyle(
+                          color: Colors.white.withOpacity(0.3),
+                          fontSize: 16,
+                        ),
+                        contentPadding: const EdgeInsets.all(20),
+                        border: InputBorder.none,
+                      ),
+                    ),
             ),
           ),
         ),
@@ -322,19 +343,18 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
     );
   }
 
-// Helper method for custom snackbar
   void _showCustomSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Container(
-          padding: EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: Row(
             children: [
-              Icon(Icons.check_circle, color: Colors.white),
-              SizedBox(width: 12),
+              const Icon(Icons.check_circle, color: Colors.white),
+              const SizedBox(width: 12),
               Text(
                 message,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -348,8 +368,8 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        margin: EdgeInsets.all(16),
-        duration: Duration(seconds: 2),
+        margin: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
@@ -386,7 +406,7 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -407,9 +427,9 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
             children: [
               _buildGlassIconButton(
                 Icons.arrow_back_rounded,
-                    () => Navigator.pop(context),
+                () => Navigator.pop(context),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Text(
                 'লিখন AI',
                 style: TextStyle(
@@ -419,10 +439,10 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
                   color: Colors.white.withOpacity(0.9),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               _buildGlassIconButton(
                 Icons.info_outline,
-                    () => _showInfo(context),
+                () => _showInfo(context),
               ),
             ],
           ),
@@ -436,7 +456,7 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           gradient: LinearGradient(
@@ -460,7 +480,7 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
   Widget _buildFeatureButtons() {
     return GridView.count(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
@@ -478,6 +498,91 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
         _buildFeatureButton('poem', 'কবিতা', Icons.format_quote),
         _buildFeatureButton('headline', 'শিরোনাম', Icons.title),
         _buildFeatureButton('academic', 'একাডেমিক', Icons.school),
+        _buildFeatureButton('poetic_prose', 'কাব্যিক গদ্য', Icons.theater_comedy),
+        _buildFeatureButton('dialect_convert', 'উপভাষা রূপান্তর', Icons.language),
+        _buildFeatureButton('sentiment_analyze', 'আবেগ বিশ্লেষণ', Icons.mood),
+        _buildFeatureButton('proverb_generate', 'প্রবাদ বাক্য', Icons.format_quote),
+        _buildFeatureButton('formal_informal', 'ভাষা পরিবর্তন', Icons.swap_horiz),
+        _buildFeatureButton('creative_writing', 'সৃজনশীল লেখা', Icons.create),
+        _buildFeatureButton('word_simplify', 'শব্দ সরলীকরণ', Icons.text_decrease),
+        _buildFeatureButton('metaphor_generate', 'রূপক তৈরি', Icons.bubble_chart),
+        _buildFeatureButton('letter_write', 'চিঠি লেখা', Icons.mail),
+        _buildFeatureButton('script_dialog', 'সংলাপ লেখা', Icons.theater_comedy),
+        _buildFeatureButton('idiom_explain', 'প্রবাদ ব্যাখ্যা', Icons.lightbulb),
+        _buildFeatureButton('news_article', 'সংবাদ পত্র', Icons.article),
+        _buildFeatureButton('essay_write', 'প্রবন্ধ লেখা', Icons.edit_document),
+        _buildFeatureButton('speech_write', 'ভাষণ লেখা', Icons.record_voice_over),
+        _buildFeatureButton('debate_point', 'বিতর্ক বিন্দু', Icons.account_balance),
+        _buildFeatureButton('social_media_post', 'সোশ্যাল মিডিয়া পোস্ট', Icons.share),
+        _buildFeatureButton('literary_analysis', 'সাহিত্য বিশ্লেষণ', Icons.library_books),
+        _buildFeatureButton('word_origin', 'শব্দ মূল', Icons.history_edu),
+        _buildFeatureButton('tone_adjust', 'টোন পরিবর্তন', Icons.tune),
+        _buildFeatureButton('emotional_writing', 'আবেগমय লেখা', Icons.favorite),
+
+        // Content Creation Features
+        _buildFeatureButton('news_write', 'সংবাদ লেখা', Icons.article),
+        _buildFeatureButton('blog_post', 'ব্লগ পোস্ট', Icons.post_add),
+        _buildFeatureButton('research_paper', 'গবেষণাপত্র', Icons.science),
+        _buildFeatureButton('business_proposal', 'ব্যবসা প্রস্তাব', Icons.business),
+        _buildFeatureButton('resume_cv', 'রেজুমে/সিভি', Icons.description),
+
+        // Educational Tools
+        _buildFeatureButton('math_solver', 'গণিত সমাধান', Icons.calculate),
+        _buildFeatureButton('chemistry_help', 'রসায়ন সহায়তা', Icons.science),
+        _buildFeatureButton('physics_explain', 'পদার্থ ব্যাখ্যা', Icons.speed),
+        _buildFeatureButton('biology_concepts', 'জীববিজ্ঞান', Icons.biotech),
+        _buildFeatureButton('history_facts', 'ইতিহাস তথ্য', Icons.history),
+
+        // Professional Tools
+        _buildFeatureButton('email_write', 'ইমেইল লেখা', Icons.email),
+        _buildFeatureButton('meeting_minutes', 'সভার বিবরণী', Icons.meeting_room),
+        _buildFeatureButton('presentation', 'প্রেজেন্টেশন', Icons.present_to_all),
+        _buildFeatureButton('report_generate', 'প্রতিবেদন', Icons.assessment),
+        _buildFeatureButton('legal_doc', 'আইনি দলিল', Icons.gavel),
+
+        // Creative Writing
+        _buildFeatureButton('novel_writing', 'উপন্যাস লেখা', Icons.auto_stories),
+        _buildFeatureButton('screenplay', 'চিত্রনাট্য', Icons.movie),
+        _buildFeatureButton('song_lyrics', 'গানের কথা', Icons.music_note),
+        _buildFeatureButton('comic_script', 'কমিক স্ক্রিপ্ট', Icons.bubble_chart),
+        _buildFeatureButton('character_dev', 'চরিত্র উন্নয়ন', Icons.person_outline),
+
+        // Technical Writing
+        _buildFeatureButton('code_document', 'কোড ডকুমেন্ট', Icons.code),
+        _buildFeatureButton('api_docs', 'এপিআই ডক', Icons.api),
+        _buildFeatureButton('tech_manual', 'প্রযুক্তি ম্যানুয়াল', Icons.menu_book),
+        _buildFeatureButton('bug_report', 'বাগ রিপোর্ট', Icons.bug_report),
+        _buildFeatureButton('system_spec', 'সিস্টেম স্পেক', Icons.settings_system_daydream),
+
+        // Marketing Content
+        _buildFeatureButton('ad_copy', 'বিজ্ঞাপন কপি', Icons.campaign),
+        _buildFeatureButton('product_desc', 'পণ্য বিবরণ', Icons.inventory),
+        _buildFeatureButton('seo_content', 'এসইও কন্টেন্ট', Icons.trending_up),
+        _buildFeatureButton('social_caption', 'সোশ্যাল ক্যাপশন', Icons.photo_camera),
+        _buildFeatureButton('brand_story', 'ব্র্যান্ড স্টোরি', Icons.branding_watermark),
+
+        // Analysis Tools
+        _buildFeatureButton('data_analysis', 'ডেটা বিশ্লেষণ', Icons.analytics),
+        _buildFeatureButton('market_research', 'বাজার গবেষণা', Icons.show_chart),
+        _buildFeatureButton('competitor_analysis', 'প্রতিযোগী বিশ্লেষণ', Icons.compare_arrows),
+        _buildFeatureButton('trend_analysis', 'ট্রেন্ড বিশ্লেষণ', Icons.trending_up),
+        _buildFeatureButton('user_feedback', 'ব্যবহারকারী প্রতিক্রিয়া', Icons.feedback),
+
+        // Personal Development
+        _buildFeatureButton('goal_setting', 'লক্ষ্য নির্ধারণ', Icons.flag),
+        _buildFeatureButton('habit_tracker', 'অভ্যাস ট্র্যাকার', Icons.track_changes),
+        _buildFeatureButton('daily_journal', 'দৈনিক জার্নাল', Icons.book),
+        _buildFeatureButton('meditation_guide', 'ধ্যান গাইড', Icons.self_improvement),
+        _buildFeatureButton('workout_plan', 'ব্যায়াম পরিকল্পনা', Icons.fitness_center),
+
+        // Financial Tools
+        _buildFeatureButton('budget_plan', 'বাজেট পরিকল্পনা', Icons.account_balance_wallet),
+        _buildFeatureButton('expense_track', 'ব্যয় ট্র্যাকিং', Icons.money),
+        _buildFeatureButton('investment_advice', 'বিনিয়োগ পরামর্শ', Icons.trending_up),
+        _buildFeatureButton('tax_calculate', 'কর গণনা', Icons.receipt_long),
+        _buildFeatureButton('financial_report', 'আর্থিক প্রতিবেদন', Icons.assessment),
+
+        _buildFeatureButton('resume_builder', 'রিজিউম তৈরি', Icons.description),
       ],
     );
   }
@@ -494,13 +599,15 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
             Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: _isLoading ? null : () {
-                  setState(() => _selectedFeature = id);
-                  _animationController.forward().then((_) {
-                    _animationController.reverse();
-                  });
-                  processText(id);
-                },
+                onTap: _isLoading
+                    ? null
+                    : () {
+                        setState(() => _selectedFeature = id);
+                        _animationController.forward().then((_) {
+                          _animationController.reverse();
+                        });
+                        processText(id);
+                      },
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -514,14 +621,15 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
                             : Colors.white.withOpacity(0.9),
                         size: 20,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
                         label,
                         style: TextStyle(
                           color: isSelected
                               ? AppColors.primary
                               : Colors.white.withOpacity(0.9),
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          fontWeight:
+                              isSelected ? FontWeight.bold : FontWeight.normal,
                         ),
                       ),
                     ],
@@ -535,7 +643,6 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
     );
   }
 
-
   void _showInfo(BuildContext context) {
     showDialog(
       context: context,
@@ -545,17 +652,17 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(color: AppColors.primary.withOpacity(0.3)),
         ),
-        title: Text(
+        title: const Text(
           'ব্যবহার নির্দেশিকা',
           style: TextStyle(color: AppColors.textWhite),
         ),
         content: const SingleChildScrollView(
           child: Text(
             '১. টেক্সট লিখুন বা পেস্ট করুন\n'
-                '২. প্রয়োজনীয় অপশন বাছাই করুন\n'
-                '৩. প্রক্রিয়াকরণের জন্য অপেক্ষা করুন\n'
-                '৪. ফলাফল কপি করতে কপি বাটনে ক্লিক করুন\n'
-                '৫. ফলাফল সম্পাদনা করতে সরাসরি টেক্সটে ক্লিক করুন',
+            '২. প্রয়োজনীয় অপশন বাছাই করুন\n'
+            '৩. প্রক্রিয়াকরণের জন্য অপেক্ষা করুন\n'
+            '৪. ফলাফল কপি করতে কপি বাটনে ক্লিক করুন\n'
+            '৫. ফলাফল সম্পাদনা করতে সরাসরি টেক্সটে ক্লিক করুন',
             style: TextStyle(
               color: AppColors.textWhite,
               fontSize: 16,
@@ -565,7 +672,7 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
         ),
         actions: [
           TextButton(
-            child: Text(
+            child: const Text(
               'বুঝেছি',
               style: TextStyle(color: AppColors.primary),
             ),
@@ -579,8 +686,9 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
   Future<void> processText(String action) async {
     if (_inputController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('টেক্সট লিখুন', style: TextStyle(fontSize: 16, color: Colors.white)),
+        const SnackBar(
+          content: Text('টেক্সট লিখুন',
+              style: TextStyle(fontSize: 16, color: Colors.white)),
           backgroundColor: AppColors.error,
         ),
       );
@@ -591,30 +699,41 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
       _isLoading = true;
     });
 
-    String prompt = getPromptForAction(action, _inputController.text);
+    String prompt = PromptHelper.getPrompt(action, _inputController.text);
 
     try {
       final response = await http.post(
-        Uri.parse('https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=$apiKey'),
+        Uri.parse(
+            'https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=$apiKey'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
-          "contents": [{"parts": [{"text": prompt}]}]
+          "contents": [
+            {
+              "parts": [
+                {"text": prompt}
+              ]
+            }
+          ]
         }),
       );
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         setState(() {
-          _outputController.text = data['candidates'][0]['content']['parts'][0]['text'] ?? "কোন উত্তর পাওয়া যায়নি";
+          _outputController.text = data['candidates'][0]['content']['parts'][0]
+                  ['text'] ??
+              "কোন উত্তর পাওয়া যায়নি";
           _selectedFeature = action; // Update selected feature
         });
       } else {
         setState(() {
-          _outputController.text = "ত্রুটি: ${response.statusCode}\n${response.body}";
+          _outputController.text =
+              "ত্রুটি: ${response.statusCode}\n${response.body}";
         });
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('প্রক্রিয়াকরণে সমস্যা হয়েছে', style: TextStyle(fontSize: 16)),
+          const SnackBar(
+            content: Text('প্রক্রিয়াকরণে সমস্যা হয়েছে',
+                style: TextStyle(fontSize: 16)),
             backgroundColor: AppColors.error,
           ),
         );
@@ -624,8 +743,9 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
         _outputController.text = "ত্রুটি: $e";
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('প্রক্রিয়াকরণে সমস্যা হয়েছে', style: TextStyle(fontSize: 16)),
+        const SnackBar(
+          content: Text('প্রক্রিয়াকরণে সমস্যা হয়েছে',
+              style: TextStyle(fontSize: 16)),
           backgroundColor: AppColors.error,
         ),
       );
@@ -633,37 +753,6 @@ class _AITextProcessorState extends State<AITextProcessor> with SingleTickerProv
       setState(() {
         _isLoading = false;
       });
-    }
-  }
-
-  String getPromptForAction(String action, String text) {
-    switch (action) {
-      case 'paraphrase':
-        return "পুনর্লিখন করুন এবং বাংলায় উত্তর দিন:\n$text";
-      case 'grammar':
-        return "বাক্যগঠন ও ব্যাকরণ পরীক্ষা করে বাংলায় উত্তর দিন:\n$text";
-      case 'ai_detect':
-        return "এই টেক্সটটি AI দ্বারা লেখা কিনা বিশ্লেষণ করে বাংলায় জানান:\n$text";
-      case 'plagiarism':
-        return "এই টেক্সটে অনুলিপি বা চুরির সম্ভাবনা আছে কিনা বিশ্লেষণ করে বাংলায় জানান:\n$text";
-      case 'summarize':
-        return "সংক্ষিপ্ত সারাংশ বাংলায় লিখুন:\n$text";
-      case 'translate_en':
-        return "ইংরেজিতে অনুবাদ করুন:\n$text";
-      case 'translate_bn':
-        return "বাংলায় অনুবাদ করুন:\n$text";
-      case 'edit':
-        return "সম্পাদনা করে উন্নত করুন এবং বাংলায় উত্তর দিন:\n$text";
-      case 'story':
-        return "এই বিষয়ে একটি গল্প বাংলায় লিখুন:\n$text";
-      case 'poem':
-        return "এই বিষয়ে একটি কবিতা বাংলায় লিখুন:\n$text";
-      case 'headline':
-        return "এই টেক্সট থেকে আকর্ষণীয় শিরোনাম বাংলায় তৈরি করুন:\n$text";
-      case 'academic':
-        return "একাডেমিক স্টাইলে পুনর্লিখন করে বাংলায় উত্তর দিন:\n$text";
-      default:
-        return text;
     }
   }
 }

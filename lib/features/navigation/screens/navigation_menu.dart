@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:one_ai/features/navigation/providers/navigation_provider.dart';
 import 'package:one_ai/features/scan/providers/scan_screen_state.dart';
 import 'package:one_ai/utils/constants/colors.dart';
-import 'package:one_ai/utils/constants/image_strings.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -36,9 +35,9 @@ class NavigationMenu extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                AppColors.primary, // Primary color (027373)
-                AppColors.secondary, // Secondary color (2F867D)
-                Color(0xFF1D5C5C), // Darker shade of primary for depth
+                AppColors.primary,
+                AppColors.secondary,
+                Color(0xFF1D5C5C),
               ],
             ),
           ),

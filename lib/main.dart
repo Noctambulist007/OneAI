@@ -53,4 +53,3 @@ void main() async {
     print('Error initializing app: $e');
   }
 }
-

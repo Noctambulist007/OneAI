@@ -10,7 +10,8 @@ class GenerateQRCode extends StatefulWidget {
   const GenerateQRCode({super.key, required this.itemText});
 
   @override
-  State<GenerateQRCode> createState() => _GenerateQRCodeState(itemText: itemText);
+  State<GenerateQRCode> createState() =>
+      _GenerateQRCodeState(itemText: itemText);
 }
 
 class _GenerateQRCodeState extends State<GenerateQRCode> {
@@ -28,9 +29,9 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.primary, // Primary color (027373)
-            AppColors.secondary, // Secondary color (2F867D)
-            Color(0xFF1D5C5C), // Darker shade of primary for depth
+            AppColors.primary,
+            AppColors.secondary,
+            Color(0xFF1D5C5C),
           ],
         ),
       ),
