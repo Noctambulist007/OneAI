@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/utils/validations/validations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,25 +104,25 @@ class AuthProvider with ChangeNotifier {
   Future<String?> signInWithGoogle() async {
     try {
       _setLoading(true);
+      
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) return 'Google sign-in was cancelled';
 
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
       _user = userCredential.user;
       _profilePicUrl = _user?.photoURL;
       await _saveProfilePicUrl(_profilePicUrl);
 
       return null;
     } catch (e) {
-      return 'Error during Google sign-in: $e';
+      print('Error during Google sign-in: $e');
+      return 'Failed to sign in with Google. Please try again.';
     } finally {
       _setLoading(false);
     }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>480769648249-p3qspva5jbppd4kl4f4a23hd0soc6ef3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.480769648249-p3qspva5jbppd4kl4f4a23hd0soc6ef3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>480769648249-65k4qjg7rfn4h6rq9q6dh7fm2oq009at.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCkYlppOzjjV19NP47G4TmhvK2kOUvWMTE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>480769648249</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.DashScan</string>
+	<key>PROJECT_ID</key>
+	<string>scannify-3ddee</string>
+	<key>STORAGE_BUCKET</key>
+	<string>scannify-3ddee.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:480769648249:ios:027489429f5dcc6f87d6a8</string>
+	<key>DATABASE_URL</key>
+	<string>https://scannify-3ddee-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

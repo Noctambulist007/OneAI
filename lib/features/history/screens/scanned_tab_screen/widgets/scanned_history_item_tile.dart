@@ -23,7 +23,7 @@ class ScannedHistoryItemTile extends StatelessWidget {
       title: historyItem.title,
       date: formattedDate,
       onDelete: onDelete,
-      icon: Image.asset('assets/images/qr_code.png'),
+      icon: Image.asset('assets/images/qr-code-white.png'),
     );
   }
 }

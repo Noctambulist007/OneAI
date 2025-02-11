@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:one_ai/features/main/screen/main_screen.dart';
 import 'package:one_ai/features/splash/screen/widget/particle.dart';
 import 'package:one_ai/features/splash/screen/widget/particle_painter.dart';
-import 'package:one_ai/features/walkthrough/screens/onboarding/onboarding.dart';
+import 'package:one_ai/features/walkthrough/screens/onboarding/onboarding_screen.dart';
 import 'package:one_ai/utils/constants/colors.dart';
 import 'package:one_ai/utils/constants/image_strings.dart';
 import 'package:one_ai/utils/constants/sizes.dart';

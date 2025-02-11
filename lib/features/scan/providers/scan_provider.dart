@@ -35,7 +35,7 @@ class ScanProvider extends ChangeNotifier {
       );
 
       if (qrCode != '-1') {
-        _parseQRCode(qrCode);
+        _parseQRCode(qrCode!);
 
         final scannedQR = ScannedQR(
           id: 0,

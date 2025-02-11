@@ -12,6 +12,7 @@ class FeaturedCard extends StatelessWidget {
     required this.icon,
     required this.gradientColors,
     required this.onTap,
+    this.isComingSoon = false,
   }) : _pulseController = pulseController;
 
   final AnimationController _pulseController;
@@ -20,6 +21,7 @@ class FeaturedCard extends StatelessWidget {
   final IconData icon;
   final List<Color> gradientColors;
   final VoidCallback onTap;
+  final bool isComingSoon;
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +124,49 @@ class FeaturedCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  if (isComingSoon)
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: gradientColors[0].withOpacity(0.3),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(12),
+                          ),
+                          border: Border(
+                            left: BorderSide(
+                              color: gradientColors[0].withOpacity(0.3),
+                              width: 1,
+                            ),
+                            bottom: BorderSide(
+                              color: gradientColors[0].withOpacity(0.3),
+                              width: 1,
+                            ),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: gradientColors[0].withOpacity(0.1),
+                              blurRadius: 8,
+                              spreadRadius: 1,
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          'Coming Soon',
+                          style: TextStyle(
+                            color: gradientColors[0],
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),

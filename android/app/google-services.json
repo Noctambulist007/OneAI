@@ -15,39 +15,10 @@
       },
       "oauth_client": [
         {
-          "client_id": "480769648249-ugcau41vnhc6qlh4gmv2cuv9m8r83etl.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBPYxs3shA7QsGR8Yv_a0zEUd3K3AskiB0"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "480769648249-ugcau41vnhc6qlh4gmv2cuv9m8r83etl.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:480769648249:android:d428332db33ba2d787d6a8",
-        "android_client_info": {
-          "package_name": "com.noctumbulist.scannify"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "480769648249-j1i2rl8p7uen8aod90ei27h0fo3im99q.apps.googleusercontent.com",
+          "client_id": "480769648249-j6kueca1p0ufn804ksmpu7lqifpofk2u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.noctumbulist.scannify",
+            "package_name": "com.noctumbulist.one_ai",
             "certificate_hash": "593ac8c7693ce7d198d7ad81e239612540c89e0b"
           }
         },

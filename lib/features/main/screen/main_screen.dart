@@ -5,7 +5,7 @@ import 'package:one_ai/features/main/screen/widget/featured_card.dart';
 import 'package:one_ai/features/main/screen/widget/main_header.dart';
 import 'package:one_ai/features/main/screen/widget/neural_network_painter.dart';
 import 'package:one_ai/features/navigation/screens/navigation_menu.dart';
-import 'package:one_ai/features/scanai/screens/scan_ai_screen.dart';
+import 'package:one_ai/features/scan_ai/screens/scan_ai_screen.dart';
 import 'package:one_ai/features/text_ai/ai_text_processor.dart';
 import 'dart:ui';
 import 'package:one_ai/utils/constants/colors.dart';
@@ -68,7 +68,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               ),
             ),
           ),
-
           SafeArea(
             child: CustomScrollView(
               controller: _scrollController,
@@ -94,7 +93,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     background: MainHeader(pulseController: _pulseController),
                   ),
                 ),
-
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   sliver: SliverList(
@@ -105,14 +103,21 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             child: FadeInUp(
                               duration: const Duration(milliseconds: 300),
                               delay: const Duration(milliseconds: 100),
-                              child: FeaturedCard(pulseController: _pulseController, title: 'লিখন AI', description: 'টেক্সট প্রসেসিং, অনুবাদ এবং আরও অনেক কিছু', icon: Icons.text_format_rounded, gradientColors: const [
-                                  AppColors.primary,
-                                  AppColors.secondary
-                                ], onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => AITextProcessor()),
-                                )),
+                              child: FeaturedCard(
+                                  pulseController: _pulseController,
+                                  title: 'লিখন AI',
+                                  description:
+                                      'টেক্সট প্রসেসিং, অনুবাদ এবং আরও অনেক কিছু',
+                                  icon: Icons.text_format_rounded,
+                                  gradientColors: const [
+                                    AppColors.primary,
+                                    AppColors.secondary
+                                  ],
+                                  onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => AITextProcessor()),
+                                      )),
                             ),
                           ),
                           const SizedBox(width: 20),
@@ -120,30 +125,45 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             child: FadeInUp(
                               duration: const Duration(milliseconds: 300),
                               delay: const Duration(milliseconds: 200),
-                              child: FeaturedCard(pulseController: _pulseController, title: 'নকশা AI', description: 'ছবি প্রসেসিং, রূপান্তর এবং আরও অনেক কিছু', icon: Icons.image_rounded, gradientColors: [
-                                  AppColors.primary,
-                                  AppColors.secondary.withBlue(150)
-                                ], onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => const ScanAiScreen()),
-                                )),
+                              child: FeaturedCard(
+                                  pulseController: _pulseController,
+                                  title: 'নকশা AI',
+                                  description:
+                                      'ছবি প্রসেসিং, রূপান্তর এবং আরও অনেক কিছু',
+                                  icon: Icons.image_rounded,
+                                  gradientColors: [
+                                    AppColors.primary,
+                                    AppColors.secondary.withBlue(150)
+                                  ],
+                                  onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                const ScanAiScreen()),
+                                      )),
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 20),
-
                       Row(
                         children: [
                           Expanded(
                             child: FadeInUp(
                               duration: const Duration(milliseconds: 300),
                               delay: const Duration(milliseconds: 100),
-                              child: FeaturedCard(pulseController: _pulseController, title: 'কথা AI', description: 'কথা প্রসেসিং, রূপান্তর এবং আরও অনেক কিছু', icon: Icons.record_voice_over_rounded, gradientColors: const [
+                              child: FeaturedCard(
+                                  isComingSoon: true,
+                                  pulseController: _pulseController,
+                                  title: 'কথা AI',
+                                  description:
+                                      'কথা প্রসেসিং, রূপান্তর এবং আরও অনেক কিছু',
+                                  icon: Icons.record_voice_over_rounded,
+                                  gradientColors: const [
                                     AppColors.primary,
                                     AppColors.secondary
-                                  ], onTap: () => _showComingSoonDialog(context,
+                                  ],
+                                  onTap: () => _showComingSoonDialog(context,
                                       'কথা AI', 'এই ফিচারটি আসছে খুব শীঘ্রই!')),
                             ),
                           ),
@@ -152,10 +172,18 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             child: FadeInUp(
                               duration: const Duration(milliseconds: 300),
                               delay: const Duration(milliseconds: 200),
-                              child: FeaturedCard(pulseController: _pulseController, title: 'বায়োস্কোপ AI', description: 'ভিডিও প্রসেসিং, রূপান্তর এবং আরও অনেক কিছু', icon: Icons.videocam_rounded, gradientColors: [
+                              child: FeaturedCard(
+                                  isComingSoon: true,
+                                  pulseController: _pulseController,
+                                  title: 'বায়োস্কোপ AI',
+                                  description:
+                                      'ভিডিও প্রসেসিং, রূপান্তর এবং আরও অনেক কিছু',
+                                  icon: Icons.videocam_rounded,
+                                  gradientColors: [
                                     AppColors.primary,
                                     AppColors.secondary.withBlue(150)
-                                  ], onTap: () => _showComingSoonDialog(
+                                  ],
+                                  onTap: () => _showComingSoonDialog(
                                       context,
                                       'বায়োস্কোপ AI',
                                       'এই ফিচারটি আসছে খুব শীঘ্রই!')),
@@ -164,19 +192,25 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         ],
                       ),
                       const SizedBox(height: 20),
-
                       FadeInUp(
                         duration: const Duration(milliseconds: 300),
                         delay: const Duration(milliseconds: 300),
-                        child: FeaturedCard(pulseController: _pulseController, title: 'QR AI', description: 'QR কোড তৈরি করুন অথবা স্ক্যান করে তথ্য দেখুন', icon: Icons.qr_code_scanner_rounded, gradientColors: [
-                            AppColors.primary,
-                            AppColors.secondary.withBlue(150)
-                          ], onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => const NavigationMenu()),
-                          )),
+                        child: FeaturedCard(
+                            pulseController: _pulseController,
+                            title: 'QR',
+                            description:
+                                'QR কোড তৈরি করুন অথবা স্ক্যান করে তথ্য দেখুন',
+                            icon: Icons.qr_code_scanner_rounded,
+                            gradientColors: [
+                              AppColors.primary,
+                              AppColors.secondary.withBlue(150)
+                            ],
+                            onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => const NavigationMenu()),
+                                )),
                       ),
-
                       const SizedBox(height: 40),
                     ]),
                   ),
@@ -240,7 +274,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: const Color(0xff0F826B),
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),

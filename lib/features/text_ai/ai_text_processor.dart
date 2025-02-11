@@ -41,21 +41,13 @@ class _AITextProcessorState extends State<AITextProcessor>
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
-              AppColors.primary.withOpacity(0.5),
-              AppColors.secondary.withOpacity(0.5),
+              AppColors.primary.withOpacity(0.1),
+              AppColors.secondary.withOpacity(0.1),
             ],
           ),
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primary.withOpacity(
-                  0.2,
-              ),
-              blurRadius: 15,
-              spreadRadius: 2,
-            ),
-          ],
         ),
         child: Stack(
           children: [
@@ -97,6 +89,11 @@ class _AITextProcessorState extends State<AITextProcessor>
               child: Column(
                 children: [
                   _buildGlassHeader(),
+                  Container(
+                    padding: const EdgeInsets.only(top: 8),
+                    height: 150,
+                    child: _buildFeaturesList(),
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.all(16),
@@ -107,8 +104,6 @@ class _AITextProcessorState extends State<AITextProcessor>
                           _buildGlassCard(_buildInputSection()),
                           const SizedBox(height: 20),
                           _buildGlassCard(_buildOutputSection()),
-                          const SizedBox(height: 20),
-                          _buildFeatureButtons(),
                         ],
                       ),
                     ),
@@ -134,21 +129,27 @@ class _AITextProcessorState extends State<AITextProcessor>
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      AppColors.primary.withOpacity(0.5),
-                      AppColors.secondary.withOpacity(0.5)
+                      AppColors.primary,
+                      AppColors.secondary,
                     ],
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                height: 16,
-                width: 3,
-                margin: EdgeInsets.only(right: 8),
+                height: 20,
+                width: 4,
+                margin: const EdgeInsets.only(right: 12),
               ),
+              Icon(
+                Icons.edit_note_rounded,
+                color: Colors.white.withOpacity(0.9),
+                size: 24,
+              ),
+              const SizedBox(width: 8),
               Text(
-                'মন্তব্য',
+                'লিখুন',
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.9),
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,
                 ),
@@ -158,7 +159,7 @@ class _AITextProcessorState extends State<AITextProcessor>
         ),
         const SizedBox(height: 12),
         ClipRRect(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
             child: Container(
@@ -171,18 +172,11 @@ class _AITextProcessorState extends State<AITextProcessor>
                     Colors.white.withOpacity(0.05),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withOpacity(0.2),
                   width: 1.5,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.primary.withOpacity(0.1),
-                    blurRadius: 20,
-                    spreadRadius: -5,
-                  ),
-                ],
               ),
               child: Stack(
                 children: [
@@ -193,7 +187,7 @@ class _AITextProcessorState extends State<AITextProcessor>
                       fontSize: 16,
                       height: 1.5,
                     ),
-                    maxLines: 4,
+                    maxLines: 6,
                     decoration: InputDecoration(
                       hintText: 'এখানে আপনার টেক্সট লিখুন...',
                       hintStyle: TextStyle(
@@ -208,9 +202,39 @@ class _AITextProcessorState extends State<AITextProcessor>
                     Positioned(
                       top: 8,
                       right: 8,
-                      child: _buildGlassIconButton(
-                        Icons.clear,
-                        () => _inputController.clear(),
+                      child: Column(
+                        children: [
+                          _buildGlassIconButton(
+                            Icons.clear,
+                            () => setState(() {
+                              _inputController.clear();
+                              _outputController.clear();
+                            }),
+                          ),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: AppColors.primary.withOpacity(0.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: Text(
+                              '${_inputController.text.split(RegExp(r'\s+')).where((word) => word.isNotEmpty).length}/10000',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.9),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                 ],
@@ -234,21 +258,27 @@ class _AITextProcessorState extends State<AITextProcessor>
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      AppColors.secondary.withOpacity(0.5),
-                      AppColors.primary.withOpacity(0.5)
+                      AppColors.secondary,
+                      AppColors.primary,
                     ],
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                height: 16,
-                width: 3,
-                margin: const EdgeInsets.only(right: 8),
+                height: 20,
+                width: 4,
+                margin: const EdgeInsets.only(right: 12),
               ),
+              Icon(
+                Icons.auto_awesome,
+                color: Colors.white.withOpacity(0.9),
+                size: 24,
+              ),
+              const SizedBox(width: 8),
               Text(
                 'ফলাফল',
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.9),
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,
                 ),
@@ -266,7 +296,7 @@ class _AITextProcessorState extends State<AITextProcessor>
                 const SizedBox(width: 8),
                 _buildGlassIconButton(
                   Icons.clear,
-                  () => _outputController.clear(),
+                  () => setState(() => _outputController.clear()),
                 ),
               ],
             ],
@@ -274,11 +304,11 @@ class _AITextProcessorState extends State<AITextProcessor>
         ),
         const SizedBox(height: 12),
         ClipRRect(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
             child: Container(
-              height: 200,
+              height: 300,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -288,18 +318,11 @@ class _AITextProcessorState extends State<AITextProcessor>
                     Colors.white.withOpacity(0.05),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withOpacity(0.2),
                   width: 1.5,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.1),
-                    blurRadius: 20,
-                    spreadRadius: -5,
-                  ),
-                ],
               ),
               child: _isLoading
                   ? Center(
@@ -307,9 +330,10 @@ class _AITextProcessorState extends State<AITextProcessor>
                         width: 120,
                         height: 120,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(20),
                           color: Colors.black.withOpacity(0.2),
                         ),
+                        padding: const EdgeInsets.all(20),
                         child: Lottie.asset(
                           'assets/animations/loading_for_ai.json',
                           reverse: true,
@@ -477,117 +501,77 @@ class _AITextProcessorState extends State<AITextProcessor>
     );
   }
 
-  Widget _buildFeatureButtons() {
-    return GridView.count(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      mainAxisSpacing: 12,
-      crossAxisSpacing: 12,
-      childAspectRatio: 2.5,
-      children: [
-        _buildFeatureButton('paraphrase', 'পুনর্লিখন', Icons.autorenew),
-        _buildFeatureButton('grammar', 'ব্যাকরণ', Icons.spellcheck),
-        _buildFeatureButton('ai_detect', 'AI শনাক্তকরণ', Icons.psychology),
-        _buildFeatureButton('plagiarism', 'অনুলিপি', Icons.copyright),
-        _buildFeatureButton('summarize', 'সারাংশ', Icons.summarize),
-        _buildFeatureButton('translate_en', 'ইংরেজি', Icons.translate),
-        _buildFeatureButton('translate_bn', 'বাংলা', Icons.translate),
-        _buildFeatureButton('edit', 'সম্পাদনা', Icons.edit),
-        _buildFeatureButton('story', 'গল্প', Icons.book),
-        _buildFeatureButton('poem', 'কবিতা', Icons.format_quote),
-        _buildFeatureButton('headline', 'শিরোনাম', Icons.title),
-        _buildFeatureButton('academic', 'একাডেমিক', Icons.school),
-        _buildFeatureButton('poetic_prose', 'কাব্যিক গদ্য', Icons.theater_comedy),
-        _buildFeatureButton('dialect_convert', 'উপভাষা রূপান্তর', Icons.language),
-        _buildFeatureButton('sentiment_analyze', 'আবেগ বিশ্লেষণ', Icons.mood),
-        _buildFeatureButton('proverb_generate', 'প্রবাদ বাক্য', Icons.format_quote),
-        _buildFeatureButton('formal_informal', 'ভাষা পরিবর্তন', Icons.swap_horiz),
-        _buildFeatureButton('creative_writing', 'সৃজনশীল লেখা', Icons.create),
-        _buildFeatureButton('word_simplify', 'শব্দ সরলীকরণ', Icons.text_decrease),
-        _buildFeatureButton('metaphor_generate', 'রূপক তৈরি', Icons.bubble_chart),
-        _buildFeatureButton('letter_write', 'চিঠি লেখা', Icons.mail),
-        _buildFeatureButton('script_dialog', 'সংলাপ লেখা', Icons.theater_comedy),
-        _buildFeatureButton('idiom_explain', 'প্রবাদ ব্যাখ্যা', Icons.lightbulb),
-        _buildFeatureButton('news_article', 'সংবাদ পত্র', Icons.article),
-        _buildFeatureButton('essay_write', 'প্রবন্ধ লেখা', Icons.edit_document),
-        _buildFeatureButton('speech_write', 'ভাষণ লেখা', Icons.record_voice_over),
-        _buildFeatureButton('debate_point', 'বিতর্ক বিন্দু', Icons.account_balance),
-        _buildFeatureButton('social_media_post', 'সোশ্যাল মিডিয়া পোস্ট', Icons.share),
-        _buildFeatureButton('literary_analysis', 'সাহিত্য বিশ্লেষণ', Icons.library_books),
-        _buildFeatureButton('word_origin', 'শব্দ মূল', Icons.history_edu),
-        _buildFeatureButton('tone_adjust', 'টোন পরিবর্তন', Icons.tune),
-        _buildFeatureButton('emotional_writing', 'আবেগমय লেখা', Icons.favorite),
-
-        // Content Creation Features
-        _buildFeatureButton('news_write', 'সংবাদ লেখা', Icons.article),
-        _buildFeatureButton('blog_post', 'ব্লগ পোস্ট', Icons.post_add),
-        _buildFeatureButton('research_paper', 'গবেষণাপত্র', Icons.science),
-        _buildFeatureButton('business_proposal', 'ব্যবসা প্রস্তাব', Icons.business),
-        _buildFeatureButton('resume_cv', 'রেজুমে/সিভি', Icons.description),
-
-        // Educational Tools
-        _buildFeatureButton('math_solver', 'গণিত সমাধান', Icons.calculate),
-        _buildFeatureButton('chemistry_help', 'রসায়ন সহায়তা', Icons.science),
-        _buildFeatureButton('physics_explain', 'পদার্থ ব্যাখ্যা', Icons.speed),
-        _buildFeatureButton('biology_concepts', 'জীববিজ্ঞান', Icons.biotech),
-        _buildFeatureButton('history_facts', 'ইতিহাস তথ্য', Icons.history),
-
-        // Professional Tools
-        _buildFeatureButton('email_write', 'ইমেইল লেখা', Icons.email),
-        _buildFeatureButton('meeting_minutes', 'সভার বিবরণী', Icons.meeting_room),
-        _buildFeatureButton('presentation', 'প্রেজেন্টেশন', Icons.present_to_all),
-        _buildFeatureButton('report_generate', 'প্রতিবেদন', Icons.assessment),
-        _buildFeatureButton('legal_doc', 'আইনি দলিল', Icons.gavel),
-
-        // Creative Writing
-        _buildFeatureButton('novel_writing', 'উপন্যাস লেখা', Icons.auto_stories),
-        _buildFeatureButton('screenplay', 'চিত্রনাট্য', Icons.movie),
-        _buildFeatureButton('song_lyrics', 'গানের কথা', Icons.music_note),
-        _buildFeatureButton('comic_script', 'কমিক স্ক্রিপ্ট', Icons.bubble_chart),
-        _buildFeatureButton('character_dev', 'চরিত্র উন্নয়ন', Icons.person_outline),
-
-        // Technical Writing
-        _buildFeatureButton('code_document', 'কোড ডকুমেন্ট', Icons.code),
-        _buildFeatureButton('api_docs', 'এপিআই ডক', Icons.api),
-        _buildFeatureButton('tech_manual', 'প্রযুক্তি ম্যানুয়াল', Icons.menu_book),
-        _buildFeatureButton('bug_report', 'বাগ রিপোর্ট', Icons.bug_report),
-        _buildFeatureButton('system_spec', 'সিস্টেম স্পেক', Icons.settings_system_daydream),
-
-        // Marketing Content
-        _buildFeatureButton('ad_copy', 'বিজ্ঞাপন কপি', Icons.campaign),
-        _buildFeatureButton('product_desc', 'পণ্য বিবরণ', Icons.inventory),
-        _buildFeatureButton('seo_content', 'এসইও কন্টেন্ট', Icons.trending_up),
-        _buildFeatureButton('social_caption', 'সোশ্যাল ক্যাপশন', Icons.photo_camera),
-        _buildFeatureButton('brand_story', 'ব্র্যান্ড স্টোরি', Icons.branding_watermark),
-
-        // Analysis Tools
-        _buildFeatureButton('data_analysis', 'ডেটা বিশ্লেষণ', Icons.analytics),
-        _buildFeatureButton('market_research', 'বাজার গবেষণা', Icons.show_chart),
-        _buildFeatureButton('competitor_analysis', 'প্রতিযোগী বিশ্লেষণ', Icons.compare_arrows),
-        _buildFeatureButton('trend_analysis', 'ট্রেন্ড বিশ্লেষণ', Icons.trending_up),
-        _buildFeatureButton('user_feedback', 'ব্যবহারকারী প্রতিক্রিয়া', Icons.feedback),
-
-        // Personal Development
-        _buildFeatureButton('goal_setting', 'লক্ষ্য নির্ধারণ', Icons.flag),
-        _buildFeatureButton('habit_tracker', 'অভ্যাস ট্র্যাকার', Icons.track_changes),
-        _buildFeatureButton('daily_journal', 'দৈনিক জার্নাল', Icons.book),
-        _buildFeatureButton('meditation_guide', 'ধ্যান গাইড', Icons.self_improvement),
-        _buildFeatureButton('workout_plan', 'ব্যায়াম পরিকল্পনা', Icons.fitness_center),
-
-        // Financial Tools
-        _buildFeatureButton('budget_plan', 'বাজেট পরিকল্পনা', Icons.account_balance_wallet),
-        _buildFeatureButton('expense_track', 'ব্যয় ট্র্যাকিং', Icons.money),
-        _buildFeatureButton('investment_advice', 'বিনিয়োগ পরামর্শ', Icons.trending_up),
-        _buildFeatureButton('tax_calculate', 'কর গণনা', Icons.receipt_long),
-        _buildFeatureButton('financial_report', 'আর্থিক প্রতিবেদন', Icons.assessment),
-
-        _buildFeatureButton('resume_builder', 'রিজিউম তৈরি', Icons.description),
+  Widget _buildFeaturesList() {
+    final List<List<Map<String, dynamic>>> featureRows = [
+      // Row 1 - Basic Features
+      [
+        {'id': 'paraphrase', 'label': 'পুনর্লিখন', 'icon': Icons.autorenew},
+        {'id': 'grammar', 'label': 'ব্যাকরণ', 'icon': Icons.spellcheck},
+        {'id': 'summarize', 'label': 'সারাংশ', 'icon': Icons.summarize},
+        {'id': 'translate_en', 'label': 'ইংরেজি', 'icon': Icons.translate},
+        {'id': 'translate_bn', 'label': 'বাংলা', 'icon': Icons.translate},
+        {'id': 'edit', 'label': 'সম্পাদনা', 'icon': Icons.edit},
       ],
+      // Row 2 - Creative Features
+      [
+        {'id': 'story', 'label': 'গল্প', 'icon': Icons.book},
+        {'id': 'poem', 'label': 'কবিতা', 'icon': Icons.format_quote},
+        {'id': 'creative_writing', 'label': 'সৃজনশীল', 'icon': Icons.create},
+        {'id': 'headline', 'label': 'শিরোনাম', 'icon': Icons.title},
+        {'id': 'letter_write', 'label': 'চিঠি', 'icon': Icons.mail},
+        {'id': 'script_dialog', 'label': 'সংলাপ', 'icon': Icons.theater_comedy},
+      ],
+      // Row 3 - Professional Features
+      [
+        {'id': 'academic', 'label': 'একাডেমিক', 'icon': Icons.school},
+        {
+          'id': 'business_proposal',
+          'label': 'প্রস্তাব',
+          'icon': Icons.business
+        },
+        {'id': 'resume_cv', 'label': 'রেজুমি', 'icon': Icons.description},
+        {'id': 'email_write', 'label': 'ইমেইল', 'icon': Icons.email},
+        {'id': 'report_generate', 'label': 'রিপোর্ট', 'icon': Icons.assessment},
+        {
+          'id': 'presentation',
+          'label': 'প্রেজেন্টেশন',
+          'icon': Icons.present_to_all
+        },
+      ],
+    ];
+
+    return Container(
+      height: 220,
+      child: Column(
+        children: featureRows.map((row) {
+          return Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: row.map((feature) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
+                    child: _buildFeatureChip(
+                      feature['id'],
+                      feature['label'],
+                      feature['icon'],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 
-  Widget _buildFeatureButton(String id, String label, IconData icon) {
+  Widget _buildFeatureChip(String id, String label, IconData icon) {
     bool isSelected = _selectedFeature == id;
 
     return AnimatedBuilder(
@@ -595,45 +579,62 @@ class _AITextProcessorState extends State<AITextProcessor>
       builder: (context, child) {
         return Transform.scale(
           scale: isSelected ? _scaleAnimation.value : 1.0,
-          child: _buildGlassCard(
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: _isLoading
-                    ? null
-                    : () {
-                        setState(() => _selectedFeature = id);
-                        _animationController.forward().then((_) {
-                          _animationController.reverse();
-                        });
-                        processText(id);
-                      },
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        icon,
-                        color: isSelected
-                            ? AppColors.primary
-                            : Colors.white.withOpacity(0.9),
-                        size: 20,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        label,
-                        style: TextStyle(
-                          color: isSelected
-                              ? AppColors.primary
-                              : Colors.white.withOpacity(0.9),
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.normal,
-                        ),
-                      ),
-                    ],
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: _isLoading
+                  ? null
+                  : () {
+                      setState(() => _selectedFeature = id);
+                      _animationController.forward().then((_) {
+                        _animationController.reverse();
+                      });
+                      processText(id);
+                    },
+              borderRadius: BorderRadius.circular(30),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  gradient: LinearGradient(
+                    colors: isSelected
+                        ? [AppColors.primary, AppColors.secondary]
+                        : [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white.withOpacity(0.05),
+                          ],
                   ),
+                  border: Border.all(
+                    color: isSelected
+                        ? AppColors.primary
+                        : Colors.white.withOpacity(0.1),
+                    width: 1.5,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      icon,
+                      color: isSelected
+                          ? Colors.white
+                          : Colors.white.withOpacity(0.9),
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      label,
+                      style: TextStyle(
+                        color: isSelected
+                            ? Colors.white
+                            : Colors.white.withOpacity(0.9),
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.normal,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -704,7 +705,7 @@ class _AITextProcessorState extends State<AITextProcessor>
     try {
       final response = await http.post(
         Uri.parse(
-            'https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=$apiKey'),
+            'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=$apiKey'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           "contents": [
@@ -713,7 +714,31 @@ class _AITextProcessorState extends State<AITextProcessor>
                 {"text": prompt}
               ]
             }
-          ]
+          ],
+          "safetySettings": [
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            }
+          ],
+          "generationConfig": {
+            "temperature": 0.7,
+            "topK": 40,
+            "topP": 0.95,
+            "maxOutputTokens": 2048,
+          }
         }),
       );
 
@@ -723,7 +748,7 @@ class _AITextProcessorState extends State<AITextProcessor>
           _outputController.text = data['candidates'][0]['content']['parts'][0]
                   ['text'] ??
               "কোন উত্তর পাওয়া যায়নি";
-          _selectedFeature = action; // Update selected feature
+          _selectedFeature = action;
         });
       } else {
         setState(() {

@@ -5,10 +5,10 @@ import 'dart:io';
 import 'package:lottie/lottie.dart';
 import 'package:one_ai/utils/constants/colors.dart';
 import 'package:provider/provider.dart';
-import 'package:one_ai/features/scanai/providers/scan_ai_provider.dart';
+import 'package:one_ai/features/scan_ai/providers/scan_ai_provider.dart';
 
 class ScanAiScreen extends StatelessWidget {
-  const ScanAiScreen({Key? key}) : super(key: key);
+  const ScanAiScreen({super.key});
 
   void _copyToClipboard(BuildContext context, String text) {
     Clipboard.setData(ClipboardData(text: text));
@@ -125,21 +125,13 @@ class ScanAiScreen extends StatelessWidget {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
-              AppColors.primary.withOpacity(0.5),
-              AppColors.secondary.withOpacity(0.5),
+              AppColors.primary.withOpacity(0.1),
+              AppColors.secondary.withOpacity(0.1),
             ],
           ),
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primary.withOpacity(
-                0.2,
-              ),
-              blurRadius: 15,
-              spreadRadius: 2,
-            ),
-          ],
         ),
         child: Stack(
           children: [
@@ -187,9 +179,9 @@ class ScanAiScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          _buildImageSection(scanProvider),
+                          _buildFeatureGrid(context, scanProvider),
                           const SizedBox(height: 24),
-                          _buildActionButtons(context, scanProvider),
+                          _buildImageSection(context, scanProvider),
                           const SizedBox(height: 24),
                           _buildResultsSection(context, scanProvider),
                         ],
@@ -250,209 +242,284 @@ class ScanAiScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildImageSection(ScanAIProvider scanProvider) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+  Widget _buildFeatureGrid(BuildContext context, ScanAIProvider scanProvider) {
+    final List<List<Map<String, dynamic>>> featureRows = [
+      // Row 1 - Basic Features
+      [
+        {
+          'id': 'describe',
+          'label': 'Describe Image',
+          'icon': Icons.image_search,
+          'onPressed': scanProvider.image != null
+              ? scanProvider.generateDescription
+              : null,
+        },
+        {
+          'id': 'generate',
+          'label': 'Generate Image',
+          'icon': Icons.auto_awesome,
+          'onPressed': () => _showComingSoonDialog(context),
+          'isComingSoon': true,
+        },
+        {
+          'id': 'extract_text',
+          'label': 'Extract Text',
+          'icon': Icons.text_fields,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.extractText : null,
+        },
+        {
+          'id': 'handwriting',
+          'label': 'Scan Handwriting',
+          'icon': Icons.draw,
+          'onPressed': scanProvider.image != null
+              ? scanProvider.extractHandwriting
+              : null,
+        },
+      ],
+      // Row 2 - Analysis Features
+      [
+        {
+          'id': 'document',
+          'label': 'Analyze Document',
+          'icon': Icons.description,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.analyzeDocument : null,
+        },
+        {
+          'id': 'nutrition',
+          'label': 'Nutrition Info',
+          'icon': Icons.lunch_dining,
+          'onPressed': scanProvider.image != null
+              ? scanProvider.extractNutritionInfo
+              : null,
+        },
+        {
+          'id': 'math',
+          'label': 'Solve Math',
+          'icon': Icons.functions,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.solveMathProblem : null,
+        },
+      ],
+      // Row 3 - Advanced Features
+      [
+        {
+          'id': 'code',
+          'label': 'Analyze Code',
+          'icon': Icons.code,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.analyzeCode : null,
+        },
+        {
+          'id': 'product',
+          'label': 'Product Review',
+          'icon': Icons.star,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.reviewProduct : null,
+        },
+        {
+          'id': 'property',
+          'label': 'Property Analysis',
+          'icon': Icons.home,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.analyzeProperty : null,
+        },
+      ],
+      // Row 4 - Additional Features
+      [
+        {
+          'id': 'tech',
+          'label': 'Tech Specs',
+          'icon': Icons.computer,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.extractTechSpecs : null,
+        },
+        {
+          'id': 'chart',
+          'label': 'Chart Analysis',
+          'icon': Icons.bar_chart,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.analyzeChart : null,
+        },
+      ],
+      // Row 5 - Translation Features
+      [
+        {
+          'id': 'currency',
+          'label': 'Convert Currency',
+          'icon': Icons.monetization_on,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.convertCurrency : null,
+        },
+        {
+          'id': 'translate',
+          'label': 'Translate Text',
+          'icon': Icons.translate,
+          'onPressed':
+              scanProvider.image != null ? scanProvider.translateText : null,
+        },
+      ],
+    ];
+
+    return Container(
+      height: 250,
+      child: Column(
+        children: featureRows.map((row) {
+          return Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              child: Row(
+                children: row.map((feature) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: _buildFeatureChip(
+                      context,
+                      feature['id'] as String,
+                      feature['label'] as String,
+                      feature['icon'] as IconData,
+                      feature['onPressed'] as Function?,
+                      isComingSoon: feature['isComingSoon'] as bool? ?? false,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildFeatureChip(BuildContext context, String id, String label,
+      IconData icon, Function? onPressed,
+      {bool isComingSoon = false}) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onPressed == null
+            ? () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Text('Please select an image first',
+                        style: TextStyle(color: Colors.white)),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              }
+            : () => onPressed(),
+        borderRadius: BorderRadius.circular(30),
         child: Container(
-          height: 300,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
               colors: [
                 Colors.white.withOpacity(0.1),
                 Colors.white.withOpacity(0.05),
               ],
             ),
-            borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withOpacity(0.1),
               width: 1.5,
             ),
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: scanProvider.image != null
-                ? Image.file(
-                    File(scanProvider.image!.path),
-                    fit: BoxFit.cover,
-                  )
-                : Center(
-                    child: Lottie.asset(
-                      'assets/animations/avatar.json',
-                      height: 300,
-                      width: 300,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    icon,
+                    color: Colors.white.withOpacity(0.9),
+                    size: 18,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.9),
+                      fontSize: 14,
                     ),
                   ),
+                ],
+              ),
+              if (isComingSoon)
+                Positioned(
+                  top: -12,
+                  right: -8,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.orange[300],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Text(
+                      'Coming Soon',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 8,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildActionButtons(
-      BuildContext context, ScanAIProvider scanProvider) {
+  Widget _buildImageSection(BuildContext context, ScanAIProvider scanProvider) {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: _buildGlassActionButton(
-                'Describe Image',
-                Icons.image_search,
-                scanProvider.image != null
-                    ? scanProvider.generateDescription
-                    : null,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+            child: Container(
+              height: 300,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.white.withOpacity(0.1),
+                    Colors.white.withOpacity(0.05),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.2),
+                  width: 1.5,
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: scanProvider.image != null
+                    ? Image.file(
+                        File(scanProvider.image!.path),
+                        fit: BoxFit.cover,
+                      )
+                    : Center(
+                        child: Lottie.asset(
+                          'assets/animations/avatar.json',
+                          height: 300,
+                          width: 300,
+                        ),
+                      ),
               ),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _buildGlassActionButton(
-                'Extract Text',
-                Icons.text_fields,
-                scanProvider.image != null ? scanProvider.extractText : null,
-              ),
-            ),
-          ],
+          ),
         ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: _buildGlassActionButton(
-                'Scan Handwriting',
-                Icons.draw,
-                scanProvider.image != null
-                    ? scanProvider.extractHandwriting
-                    : null,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _buildGlassActionButton(
-                'Generate Image',
-                Icons.auto_awesome,
-                () => _showComingSoonDialog(context),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: _buildGlassActionButton(
-                'Analyze Document',
-                Icons.description,
-                scanProvider.image != null
-                    ? scanProvider.analyzeDocument
-                    : null,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _buildGlassActionButton(
-                'Nutrition Info',
-                Icons.lunch_dining,
-                scanProvider.image != null
-                    ? scanProvider.extractNutritionInfo
-                    : null,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: _buildGlassActionButton(
-                'Solve Math',
-                Icons.functions,
-                scanProvider.image != null
-                    ? scanProvider.solveMathProblem
-                    : null,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _buildGlassActionButton(
-                'Analyze Code',
-                Icons.code,
-                scanProvider.image != null ? scanProvider.analyzeCode : null,
-              ),
-            )
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: _buildGlassActionButton(
-                'Product Review',
-                Icons.star,
-                scanProvider.image != null ? scanProvider.reviewProduct : null,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _buildGlassActionButton(
-                'Property Analysis',
-                Icons.home,
-                scanProvider.image != null
-                    ? scanProvider.analyzeProperty
-                    : null,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: _buildGlassActionButton(
-                'Tech Specs',
-                Icons.computer,
-                scanProvider.image != null
-                    ? scanProvider.extractTechSpecs
-                    : null,
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _buildGlassActionButton(
-                'Chart Analysis',
-                Icons.bar_chart,
-                scanProvider.image != null ? scanProvider.analyzeChart : null,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: _buildGlassActionButton(
-                'Convert Currency',
-                Icons.monetization_on,
-                scanProvider.image != null
-                    ? scanProvider.convertCurrency
-                    : null,
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _buildGlassActionButton(
-                'Translate Text',
-                Icons.translate,
-                scanProvider.image != null ? scanProvider.translateText : null,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 16), // Add spacing between image and button
         _buildGlassActionButton(
+          context,
           'Choose Image',
           Icons.add_photo_alternate,
           scanProvider.getImage,
@@ -704,62 +771,109 @@ class ScanAiScreen extends StatelessWidget {
   }
 
   Widget _buildGlassActionButton(
-      String title, IconData icon, VoidCallback? onPressed,
-      {bool isPrimary = false, bool fullWidth = false}) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                isPrimary ? Color(0xff0F826B) : Colors.white.withOpacity(0.1),
-                isPrimary ? Color(0xff0F826B) : Colors.white.withOpacity(0.05),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: Colors.white.withOpacity(0.2),
-              width: 1.5,
-            ),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: onPressed,
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                width: fullWidth ? double.infinity : null,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(icon,
-                        color: isPrimary
-                            ? Colors.white
-                            : Colors.white.withOpacity(0.9)),
-                    const SizedBox(width: 8),
-                    Text(
-                      title,
-                      style: TextStyle(
-                        color: isPrimary
-                            ? Colors.white
-                            : Colors.white.withOpacity(0.9),
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+      BuildContext context,
+      // Added BuildContext parameter
+      String title,
+      IconData icon,
+      VoidCallback? onPressed,
+      {bool isPrimary = false,
+      bool fullWidth = false,
+      bool isComingSoon = false}) {
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    isPrimary
+                        ? const Color(0xff0F826B)
+                        : Colors.white.withOpacity(0.1),
+                    isPrimary
+                        ? const Color(0xff0F826B)
+                        : Colors.white.withOpacity(0.05),
                   ],
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.2),
+                  width: 1.5,
+                ),
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: onPressed ??
+                      () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Color(0xff0F826B),
+                            content: Text('Please select an image first',
+                                style: TextStyle(color: Colors.white)),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 24),
+                    width: fullWidth ? double.infinity : null,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(icon,
+                            color: isPrimary
+                                ? Colors.white
+                                : Colors.white.withOpacity(0.9)),
+                        const SizedBox(width: 8),
+                        Text(
+                          title,
+                          style: TextStyle(
+                            color: isPrimary
+                                ? Colors.white
+                                : Colors.white.withOpacity(0.9),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
+        if (isComingSoon)
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.orange[300],
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(12),
+                ),
+              ),
+              child: const Text(
+                'Coming Soon',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 8,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 

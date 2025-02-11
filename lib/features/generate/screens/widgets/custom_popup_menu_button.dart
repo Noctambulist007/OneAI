@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/features/generate/screens/widgets/about_us_dialog.dart';
+import 'package:one_ai/features/history/providers/history_sync_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:one_ai/utils/constants/colors.dart';
 import 'package:one_ai/features/history/screens/history_screen.dart'; // Ensure you import the correct path
@@ -15,27 +16,33 @@ class CustomPopupMenuButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      onSelected: (String value) {
-        if (value == 'About Us') {
-          _showAboutUsDialog(context);
-        } else if (value == 'More Apps') {
-          launch(
-              'https://play.google.com/store/apps/dev?id=8217403384611399596');
-        } else if (value == 'Privacy and Policy') {
-          launch('https://sites.google.com/view/scannify');
-        } else if (value == 'Backup') {
-          _backupData(context);
-        } else if (value == 'Restore') {
-          _restoreData(context);
+      onSelected: (String value) async {
+        switch (value) {
+          case 'Backup':
+            await HistorySyncService.backupToFirestore(context);
+            break;
+          case 'Restore':
+            await HistorySyncService.restoreFromFirestore(context);
+            break;
+          case 'About Us':
+            _showAboutUsDialog(context);
+            break;
+          case 'More Apps':
+            await launchUrl(Uri.parse(
+                'https://play.google.com/store/apps/dev?id=8217403384611399596'));
+            break;
+          case 'Privacy and Policy':
+            await launchUrl(Uri.parse('https://sites.google.com/view/scannify'));
+            break;
         }
       },
       itemBuilder: (context) => [
-        _customPopupMenuItem('Backup', Icons.backup_outlined),
-        _customPopupMenuItem('Restore', Icons.restore),
+        _buildMenuItem('Backup', Icons.backup_outlined),
+        _buildMenuItem('Restore', Icons.restore),
         const PopupMenuDivider(),
-        _customPopupMenuItem('About Us', Icons.info_outline),
-        _customPopupMenuItem('More Apps', Icons.apps_outlined),
-        _customPopupMenuItem('Privacy and Policy', Icons.privacy_tip_outlined),
+        _buildMenuItem('About Us', Icons.info_outline),
+        _buildMenuItem('More Apps', Icons.apps_outlined),
+        // _buildMenuItem('Privacy and Policy', Icons.privacy_tip_outlined),
       ],
       icon: const Icon(
         Icons.more_vert,
@@ -44,7 +51,7 @@ class CustomPopupMenuButton extends StatelessWidget {
     );
   }
 
-  PopupMenuItem<String> _customPopupMenuItem(String text, IconData icon) {
+  PopupMenuItem<String> _buildMenuItem(String text, IconData icon) {
     return PopupMenuItem<String>(
       value: text,
       child: Row(
@@ -67,25 +74,7 @@ class CustomPopupMenuButton extends StatelessWidget {
   void _showAboutUsDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return const AboutUsDialog();
-      },
-    );
-  }
-
-  void _backupData(BuildContext context) {
-    final historyScreen = HistoryScreen();
-    historyScreen.backupDataToFirestore();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Backup successful')),
-    );
-  }
-
-  void _restoreData(BuildContext context) {
-    final historyScreen = HistoryScreen();
-    historyScreen.restoreDataFromFirestore();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Restore successful')),
+      builder: (BuildContext context) => const AboutUsDialog(),
     );
   }
 }

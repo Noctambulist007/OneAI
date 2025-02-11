@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:one_ai/features/generate/providers/auth_provider.dart';
-import 'package:one_ai/features/generate/screens/widgets/login_screen.dart';
+import 'package:one_ai/features/auth/login_screen.dart';
 import 'package:one_ai/features/navigation/screens/navigation_menu.dart';
 import 'package:one_ai/utils/constants/colors.dart';
 import 'package:one_ai/utils/validations/validations.dart';
@@ -241,34 +241,26 @@ class _RegisterScreenState extends State<RegisterScreen>
           ),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _firstNameController,
-                      validator: ValidationUtils.validateName,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: _getInputDecoration(
-                        'First Name',
-                        'John',
-                        Icons.person_outline,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _lastNameController,
-                      validator: ValidationUtils.validateName,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: _getInputDecoration(
-                        'Last Name',
-                        'Doe',
-                        Icons.person_outline,
-                      ),
-                    ),
-                  ),
-                ],
+              TextFormField(
+                controller: _firstNameController,
+                validator: ValidationUtils.validateName,
+                style: const TextStyle(color: Colors.white),
+                decoration: _getInputDecoration(
+                  'First Name',
+                  'John',
+                  Icons.person_outline,
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _lastNameController,
+                validator: ValidationUtils.validateName,
+                style: const TextStyle(color: Colors.white),
+                decoration: _getInputDecoration(
+                  'Last Name',
+                  'Doe',
+                  Icons.person_outline,
+                ),
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -344,7 +336,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       child: Divider(color: Colors.black.withOpacity(0.1))),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text('Or', style: TextStyle(color: Colors.grey)),
+                    child: Text('Or', style: TextStyle(color: Colors.white)),
                   ),
                   Expanded(
                       child: Divider(color: Colors.black.withOpacity(0.1))),

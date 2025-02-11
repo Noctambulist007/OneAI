@@ -20,7 +20,7 @@ class GeneratedHistoryItemTile extends StatelessWidget {
       type: historyItem.qrImage,
       date: historyItem.date,
       onDelete: () => onDelete(),
-      icon: Image.asset('assets/images/qr_code.png'),
+      icon: Image.asset('assets/images/qr-code-white.png'),
     );
   }
 }

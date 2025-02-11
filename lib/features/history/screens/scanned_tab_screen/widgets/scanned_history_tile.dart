@@ -45,7 +45,9 @@ class ScannedHistoryTile extends StatelessWidget {
         ),
       ],
       child: Container(
-        color: AppColors.secondary.withOpacity(0.8),
+        decoration: BoxDecoration(
+          color: AppColors.secondary.withOpacity(0.8),
+        ),
         child: ListTile(
           leading: icon,
           title: Column(
@@ -54,7 +56,7 @@ class ScannedHistoryTile extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
                 ),
@@ -63,7 +65,7 @@ class ScannedHistoryTile extends StatelessWidget {
               ),
             ],
           ),
-          subtitle: Text(date, style: const TextStyle(color: Colors.grey)),
+          subtitle: Text(date, style: TextStyle(color: Colors.white.withOpacity(0.6))),
           trailing: _buildCustomPopupMenuButton(context, title),
         ),
       ),
@@ -84,7 +86,7 @@ class ScannedHistoryTile extends StatelessWidget {
             context, 'Share', Icons.share_outlined, title),
       ],
       onSelected: (int value) {},
-      icon: const Icon(Icons.more_horiz, color: Colors.black),
+      icon: const Icon(Icons.more_horiz, color: Colors.white),
     );
   }
 

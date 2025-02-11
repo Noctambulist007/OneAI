@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:one_ai/features/auth/register_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:one_ai/features/generate/providers/auth_provider.dart';
-import 'package:one_ai/features/generate/screens/widgets/register_screen.dart';
 import 'package:one_ai/features/navigation/screens/navigation_menu.dart';
 import 'package:one_ai/utils/constants/colors.dart';
 import 'package:one_ai/utils/validations/validations.dart';
@@ -276,7 +276,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 16),
                                       child: Text('Or',
-                                          style: TextStyle(color: Colors.grey)),
+                                          style: TextStyle(color: Colors.white)),
                                     ),
                                     Expanded(
                                         child: Divider(

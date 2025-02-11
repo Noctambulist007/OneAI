@@ -20,6 +20,15 @@ class HistoryItem {
     };
   }
 
+  Map<String, dynamic> toFirestore() {
+    return {
+      'id': id,
+      'title': title,
+      'date': date,
+      'qrImage': qrImage,
+    };
+  }
+
   factory HistoryItem.fromMap(Map<String, dynamic> map) {
     return HistoryItem(
       id: map['id'],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:one_ai/features/scanai/providers/scan_ai_provider.dart';
+import 'package:one_ai/features/scan_ai/providers/scan_ai_provider.dart';
 
 class Buttons extends StatelessWidget {
   const Buttons({

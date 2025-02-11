@@ -56,7 +56,7 @@ class GeneratedHistoryTile extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
                 ),
@@ -65,15 +65,15 @@ class GeneratedHistoryTile extends StatelessWidget {
               ),
               Text(
                 type,
-                style: const TextStyle(
-                  color: Colors.grey,
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.6),
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                 ),
               ),
             ],
           ),
-          subtitle: Text(date, style: const TextStyle(color: Colors.grey)),
+          subtitle: Text(date, style: TextStyle(color: Colors.white.withOpacity(0.6))),
           trailing: _buildCustomPopupMenuButton(context, title),
         ),
       ),
@@ -94,7 +94,7 @@ class GeneratedHistoryTile extends StatelessWidget {
             context, 'Share', Icons.share_outlined, title),
       ],
       onSelected: (int value) {},
-      icon: const Icon(Icons.more_horiz, color: Colors.black),
+      icon: const Icon(Icons.more_horiz, color: Colors.white),
     );
   }
 

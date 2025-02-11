@@ -61,8 +61,8 @@ class HistoryScreen extends StatelessWidget {
               ),
               indicatorColor: AppColors.primary,
               tabs: [
-                Tab(text: 'Scanned'),
-                Tab(text: 'Generated'),
+                Tab(text: 'Scanned', icon: Icon(Icons.qr_code)),
+                Tab(text: 'Generated', icon: Icon(Icons.qr_code_2)),
               ],
             ),
           ),

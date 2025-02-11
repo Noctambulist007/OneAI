@@ -97,7 +97,7 @@ class AboutUsDialogState extends State<AboutUsDialog>
                   style: TextStyle(
                       fontWeight: FontWeight.w300,
                       fontFamily: 'RobotoMono',
-                      fontSize: 16,
+                      fontSize: 14,
                       color: AppColors.primary)),
             ),
           ],

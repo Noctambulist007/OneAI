@@ -3,7 +3,7 @@ import 'package:one_ai/utils/constants/colors.dart';
 import 'features/splash/screen/splash_screen.dart';
 
 class OneAI extends StatelessWidget {
-  const OneAI({super.key});
+  const OneAI({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
