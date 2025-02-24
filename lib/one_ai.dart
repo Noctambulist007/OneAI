@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utils/constants/colors.dart';
+import 'package:one_ai/utils/constant/colors.dart';
+import 'package:one_ai/utils/navigation/navigation_service.dart';
 import 'features/splash/screen/splash_screen.dart';
 
 class OneAI extends StatelessWidget {
@@ -8,6 +9,7 @@ class OneAI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: NavigationService.navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'HindSiliguri',

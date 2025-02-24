@@ -1,22 +1,38 @@
 class PromptHelper {
-  static String getPrompt(String action, String text) {
+  static String getPrompt(String action, String text, String language) {
+    final bool isBengali = language == 'bn';
+
     switch (action) {
       case 'paraphrase':
-        return "পুনর্লিখন করুন এবং বাংলায় উত্তর দিন:\n$text";
+        return isBengali
+            ? "পুনর্লিখন করুন এবং বাংলায় উত্তর দিন:\n$text"
+            : "Please paraphrase the following text:\n$text";
+      case 'spell_check':
+        return isBengali
+            ? "এই টেক্সটের বানান পরীক্ষা করুন এবং সঠিক বানান সংশোধন করুন:\n$text"
+            : "Check spelling and correct any errors in the following text:\n$text";
       case 'grammar':
-        return "বাক্যগঠন ও ব্যাকরণ পরীক্ষা করে বাংলায় উত্তর দিন:\n$text";
+        return isBengali
+            ? "বাক্যগঠন ও ব্যাকরণ পরীক্ষা করে বাংলায় উত্তর দিন:\n$text"
+            : "Check grammar and improve sentence structure:\n$text";
       case 'ai_detect':
         return "এই টেক্সটটি AI দ্বারা লেখা কিনা বিশ্লেষণ করে বাংলায় জানান:\n$text";
       case 'plagiarism':
         return "এই টেক্সটে অনুলিপি বা চুরির সম্ভাবনা আছে কিনা বিশ্লেষণ করে বাংলায় জানান:\n$text";
       case 'summarize':
-        return "সংক্ষিপ্ত সারাংশ বাংলায় লিখুন:\n$text";
+        return isBengali
+            ? "সংক্ষিপ্ত সারাংশ বাংলায় লিখুন:\n$text"
+            : "Provide a concise summary of the following text:\n$text";
       case 'translate_en':
-        return "ইংরেজিতে অনুবাদ করুন:\n$text";
+        return isBengali
+            ? "ইংরেজিতে অনুবাদ করুন:\n$text"
+            : "Translate to English:\n$text";
       case 'translate_bn':
         return "বাংলায় অনুবাদ করুন:\n$text";
       case 'edit':
-        return "সম্পাদনা করে উন্নত করুন এবং বাংলায় উত্তর দিন:\n$text";
+        return isBengali
+            ? "সম্পাদনা করে উন্নত করুন এবং বাংলায় উত্তর দিন:\n$text"
+            : "Edit and improve the following text:\n$text";
       case 'story':
         return "এই বিষয়ে একটি গল্প বাংলায় লিখুন:\n$text";
       case 'poem':
@@ -40,7 +56,7 @@ class PromptHelper {
       case 'word_simplify':
         return "এই টেক্সটটি সরল এবং সহজবোধ্য ভাষায় লিখুন:\n$text";
       case 'metaphor_generate':
-        return "এই টেক্সটের জন্য কিছু রেखাচিত্র বা রূপক তৈরি করুন:\n$text";
+        return "এই টেক্সটের জন্য কিছু রেখাচিত্র বা রূপক তৈরি করুন:\n$text";
       case 'letter_write':
         return "এই বিষয়ে একটি আনুষ্ঠানিক/ব্যক্তিগত চিঠি লিখুন:\n$text";
       case 'script_dialog':
@@ -175,7 +191,9 @@ class PromptHelper {
       case 'resume_builder':
         return "এই তথ্য ব্যবহার করে একটি আধুনিক ও পেশাদার রেজুমে তৈরি করুন:\n$text";
       default:
-        return "দয়া করে আপনার অনুরোধ বিস্তারিত ব্যাখ্যা করুন:\n$text";
+        return isBengali
+            ? "দয়া করে আপনার অনুরোধ বিস্তারিত ব্যাখ্যা করুন:\n$text"
+            : "Please explain your request in detail:\n$text";
     }
   }
 }

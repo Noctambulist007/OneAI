@@ -4,3 +4,7 @@
 -keepattributes *Annotation*
 -keep class com.google.** { *; }
 -keep class androidx.** { *; }
+-keep class com.google.android.gms.** { *; }
+-keep class com.google.firebase.** { *; }
+-keepattributes Signature
+-keep class com.android.billingclient.** { *; }

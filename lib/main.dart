@@ -1,29 +1,34 @@
 import 'package:flutter/services.dart';
 import 'package:motion/motion.dart';
-import 'package:one_ai/features/generate/providers/auth_provider.dart';
-import 'package:one_ai/features/scan_ai/providers/scan_ai_provider.dart';
+import 'package:one_ai/features/auth/provider/auth_provider.dart';
+import 'package:one_ai/features/image_ai/provider/image_ai_provider.dart';
+import 'package:one_ai/features/push_notification/services/firebase_api.dart';
+import 'package:one_ai/features/walkthrough/provider/onboarding/onboarding_provider.dart';
 import 'package:one_ai/one_ai.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'data/repositories/db_history/scanned_qr_db/scanned_qr_database_provider.dart';
-import 'features/history/providers/history_provider.dart';
-import 'features/history/providers/scanned_history_provider.dart';
-import 'features/push_notifications/services/firebase_api.dart';
-import 'features/scan/providers/scan_provider.dart';
-import 'features/walkthrough/providers/onboarding/onboarding_provider.dart';
+import 'features/subscription/provider/subscription_provider.dart';
 import 'firebase_options.dart';
+import 'features/text_ai/provider/language_provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'features/home/provider/home_provider.dart';
 
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
+
+    try {
+      await dotenv.load(fileName: ".env");
+    } catch (e) {
+      print('Error loading .env file: $e');
+    }
 
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
     await FirebaseApi().initNotifications();
-    await ScannedQRDatabaseProvider.instance.initialize();
 
     await Motion.instance.initialize();
     Motion.instance.setUpdateInterval(60.fps);
@@ -37,11 +42,15 @@ void main() async {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => AuthProvider()),
-          ChangeNotifierProvider(create: (context) => OnBoardingProvider()),
-          ChangeNotifierProvider(create: (context) => ScanProvider()),
-          ChangeNotifierProvider(create: (context) => ScannedHistoryState()),
-          ChangeNotifierProvider(create: (context) => HistoryState()),
-          ChangeNotifierProvider(create: (context) => ScanAIProvider()),
+          ChangeNotifierProvider(create: (_) => SubscriptionProvider()),
+          ChangeNotifierProvider(create: (_) => OnBoardingProvider()),
+          ChangeNotifierProvider(create: (_) => ImageAiProvider()),
+          ChangeNotifierProvider(create: (_) => LanguageProvider()),
+          ChangeNotifierProvider(
+            create: (context) => HomeProvider(
+              vsync: NavigatorState(),
+            ),
+          ),
         ],
         child: const OneAI(),
       ),

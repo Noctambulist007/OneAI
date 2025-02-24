@@ -309,3 +309,6 @@ android/app/android/app/outputs/
 *.apk
 kernel_blob.bin
 *.so
+
+.env
+!.env.example
