@@ -39,15 +39,15 @@
   <table>
     <tr>
       <td align="center" width="25%">
-        <img src="https://github.com/user-attachments/assets/d06bd982-a175-4ef2-b97f-f3d5bc464821" width="80" alt="Text Processing"/><br/>
+        <img src="https://github.com/user-attachments/assets/d06bd982-a175-4ef2-b97f-f3d5bc464821"  alt="Text Processing"/><br/>
         <strong>AI Text Processing</strong>
       </td>
       <td align="center" width="25%">
-        <img src="https://github.com/user-attachments/assets/5ab68c27-02d6-465e-86cf-b808ff6640c5" width="80" alt="Image to Text"/><br/>
+        <img src="https://github.com/user-attachments/assets/5ab68c27-02d6-465e-86cf-b808ff6640c5" alt="Image to Text"/><br/>
         <strong>Image Recognition</strong>
       </td>
       <td align="center" width="25%">
-        <img src="https://github.com/user-attachments/assets/678acbad-59d6-4006-8da7-fae2a77d7c19" width="80" alt="Authentication"/><br/>
+        <img src="https://github.com/user-attachments/assets/678acbad-59d6-4006-8da7-fae2a77d7c19" alt="Authentication"/><br/>
         <strong>Secure Authentication</strong>
       </td>
       <td align="center" width="25%">
