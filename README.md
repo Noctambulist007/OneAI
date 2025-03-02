@@ -92,16 +92,24 @@
 ## 📱 Screenshots
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/yourusername/oneai/main/assets/screenshots/collage.png" alt="App Screenshots" width="950px"/>
+  <img src="https://github.com/user-attachments/assets/79f9ad2c-d258-4948-b506-7a1b340ffe59" alt="Screenshot 1" width="300px"/>
 </div>
 
 <details>
   <summary><b>View More Screenshots</b></summary>
   <div align="center">
-    <img src="https://raw.githubusercontent.com/yourusername/oneai/main/assets/screenshots/onboarding.png" alt="Onboarding" width="300px"/>
-    <img src="https://raw.githubusercontent.com/yourusername/oneai/main/assets/screenshots/text-processing.png" alt="Text Processing" width="300px"/>
-    <img src="https://raw.githubusercontent.com/yourusername/oneai/main/assets/screenshots/image-analysis.png" alt="Image Analysis" width="300px"/>
-    <img src="https://raw.githubusercontent.com/yourusername/oneai/main/assets/screenshots/subscription.png" alt="Subscription" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/1c28631a-abe9-43c8-a4d4-6013ba3ab462" alt="Screenshot 2" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/b1158c52-51dc-4c51-8839-43c516d7d242" alt="Screenshot 3" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/a36e78e5-b235-431b-9306-e47889cc9d3b" alt="Screenshot 4" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/41a43afd-9c40-4e51-ab25-fa1281b09f6d" alt="Screenshot 5" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/3f299632-2d5f-4380-b285-1e94043da99a" alt="Screenshot 6" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/13126ac5-1145-4277-ac9e-fea70b6e9646" alt="Screenshot 7" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/233d2577-8287-4599-a0eb-b076edd04db3" alt="Screenshot 8" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/9f438b60-5083-4745-97e1-dd5b72e38acd" alt="Screenshot 9" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/ba23e77a-e826-4749-8e52-52a5fcf02197" alt="Screenshot 10" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/b9921692-e380-4190-aead-342207b60672" alt="Screenshot 11" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/c2f9929e-d24b-4bfc-bf0a-763ed03645f0" alt="Screenshot 12" width="300px"/>
+    <img src="https://github.com/user-attachments/assets/a758c556-4eda-4641-a822-ea345a758ad9" alt="Screenshot 13" width="300px"/>
   </div>
 </details>
 
